@@ -67,6 +67,15 @@ namespace AuditoriaParlamentar {
         protected global::System.Web.UI.WebControls.Button ButtonEfetivaSen;
         
         /// <summary>
+        /// GridViewAcerto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridViewAcerto;
+        
+        /// <summary>
         /// GridViewPrevia control.
         /// </summary>
         /// <remarks>

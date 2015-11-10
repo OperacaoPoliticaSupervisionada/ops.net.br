@@ -81,6 +81,9 @@ namespace AuditoriaParlamentar
         protected void GridViewResultado_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             e.Row.Cells[4].HorizontalAlign = HorizontalAlign.Right;
+            e.Row.Cells[5].Visible = false;
+            e.Row.Cells[6].Visible = false;
+            e.Row.Cells[7].Visible = false;
 
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
@@ -99,6 +102,21 @@ namespace AuditoriaParlamentar
                 }
                 catch
                 {}
+
+                long refDoc;
+
+                if (Int64.TryParse(e.Row.Cells[7].Text, out refDoc))
+                {
+                    if (refDoc > 0)
+                    {
+                        HyperLink url = new HyperLink();
+                        url.NavigateUrl = "http://www.camara.gov.br/cota-parlamentar/documentos/publ/" + e.Row.Cells[5].Text + "/" + e.Row.Cells[6].Text + "/" + e.Row.Cells[7].Text + ".pdf";
+                        url.Target = "_blank";
+                        url.Text = e.Row.Cells[2].Text;
+                        e.Row.Cells[2].Controls.Clear();
+                        e.Row.Cells[2].Controls.Add(url);
+                    }
+                }
             }
             else if (e.Row.RowType == DataControlRowType.Footer)
             {

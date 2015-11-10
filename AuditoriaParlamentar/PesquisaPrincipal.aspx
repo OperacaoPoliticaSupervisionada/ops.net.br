@@ -60,6 +60,7 @@
             }
 
             $('#<%= ButtonPesquisar.ClientID %>').addClass('ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only');
+            $('#<%= ButtonShare.ClientID %>').addClass('ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only');
         });
 
         $(document).ready(function () {
@@ -440,6 +441,12 @@
                                     </table>
                                 </div>
                             </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left">
+                            <asp:Button ID="ButtonShare" runat="server" OnClick="ButtonShare_Click" Text="Compartilhar"
+                                Width="200px" Visible="False" />
                         </td>
                     </tr>
                     <tr>

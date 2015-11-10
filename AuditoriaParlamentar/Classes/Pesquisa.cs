@@ -102,9 +102,14 @@ namespace AuditoriaParlamentar
                         sqlCampos.Append("          lancamentos.datEmissao,");
                         sqlCampos.Append("          lancamentos.txtCNPJCPF AS agrupamento,");
                         sqlCampos.Append("          SUBSTRING(IFNULL(fornecedores.txtbeneficiario, lancamentos.txtbeneficiario), 1, 50) AS txtbeneficiario,");
+                        sqlCampos.Append("          parlamentares.nuDeputadoId,");
+                        sqlCampos.Append("          lancamentos.numano,");
+                        sqlCampos.Append("          lancamentos.ide_documento_fiscal,");
 
                         sqlFrom.Append(" LEFT JOIN fornecedores");
                         sqlFrom.Append("        ON fornecedores.txtCNPJCPF = lancamentos.txtCNPJCPF");
+                        sqlFrom.Append(" LEFT JOIN parlamentares");
+                        sqlFrom.Append("        ON parlamentares.ideCadastro = lancamentos.ideCadastro");
 
                         separarMes = false;
 
@@ -353,7 +358,7 @@ namespace AuditoriaParlamentar
                         break;
 
                     case AGRUPAMENTO_DOCUMENTO:
-                        sqlCmd.Append(" GROUP BY 1, 2, 3, 4, 5");
+                        sqlCmd.Append(" GROUP BY 1, 2, 3, 4, 5, 6, 7, 8");
 
                         //if (separarMes == true)
                         //    sqlCmd.Append(" ORDER BY " + (numMes + 6).ToString() + " DESC");
@@ -448,16 +453,21 @@ namespace AuditoriaParlamentar
         {
             StringBuilder sql = new StringBuilder();
 
-            sql.Append("   SELECT DISTINCT");
-            sql.Append("          lancamentos.txNomeParlamentar,");
-            sql.Append("          lancamentos.txtNumero,");
-            sql.Append("          lancamentos.datEmissao,");
-            sql.Append("          lancamentos.vlrDocumento");
-            sql.Append("  FROM lancamentos");
-            sql.Append(" WHERE lancamentos.txtCNPJCPF  = @txtCNPJCPF");
-            sql.Append("   AND lancamentos.ideCadastro = @ideCadastro");
-            sql.Append(" ORDER BY 1, 3 DESC");
-            sql.Append(" LIMIT 1000");
+            sql.Append("    SELECT DISTINCT");
+            sql.Append("           lancamentos.txNomeParlamentar,");
+            sql.Append("           lancamentos.txtNumero,");
+            sql.Append("           lancamentos.datEmissao,");
+            sql.Append("           lancamentos.vlrDocumento,");
+            sql.Append("           parlamentares.nuDeputadoId,");
+            sql.Append("           lancamentos.numano,");
+            sql.Append("           lancamentos.ide_documento_fiscal");
+            sql.Append("      FROM lancamentos");
+            sql.Append(" LEFT JOIN parlamentares");
+            sql.Append("        ON parlamentares.ideCadastro = lancamentos.ideCadastro");
+            sql.Append("     WHERE lancamentos.txtCNPJCPF    = @txtCNPJCPF");
+            sql.Append("       AND lancamentos.ideCadastro   = @ideCadastro");
+            sql.Append("  ORDER BY 1, 3 DESC");
+            sql.Append("     LIMIT 1000");
 
             using (Banco banco = new Banco())
             {

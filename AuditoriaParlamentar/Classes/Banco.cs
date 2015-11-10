@@ -18,14 +18,14 @@ namespace AuditoriaParlamentar
 
         internal Banco()
         {
-            String connStr = "Datasource=localhost;Database=auditoria;uid=ops;pwd=ops;";
+            String connStr = "Datasource=localhost;Database=auditoria;uid=ops;pwd=mis918CAT15awk;";
 
             mParametros = new List<MySqlParameter>();
             mConnection = new MySqlConnection(connStr);
             mConnection.Open();
 
-            ExecuteNonQuery("set @@session.time_zone = '-02:00'"); //Horário de verão
-            //ExecuteNonQuery("set @@session.time_zone = '-03:00'");
+            //ExecuteNonQuery("set @@session.time_zone = '-02:00'"); //Horário de verão
+            ExecuteNonQuery("set @@session.time_zone = '-03:00'");
 
             mBeginTransaction = false;
         }

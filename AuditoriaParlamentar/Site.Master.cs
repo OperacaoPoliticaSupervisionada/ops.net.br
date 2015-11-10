@@ -37,11 +37,11 @@ namespace AuditoriaParlamentar
                         menuRevisao.NavigateUrl = "~/Revisao.aspx";
                         NavigationMenu.Items.Add(menuRevisao);
 
-                        MenuItem menuAcompanha = new MenuItem();
-                        menuAcompanha.Text = "Relatórios";
-                        menuAcompanha.Value = "Relatórios";
-                        menuAcompanha.NavigateUrl = "~/Relatorio.aspx";
-                        NavigationMenu.Items.Add(menuAcompanha);
+                        //MenuItem menuAcompanha = new MenuItem();
+                        //menuAcompanha.Text = "Relatórios";
+                        //menuAcompanha.Value = "Relatórios";
+                        //menuAcompanha.NavigateUrl = "~/Relatorio.aspx";
+                        //NavigationMenu.Items.Add(menuAcompanha);
                     }
 
                 }

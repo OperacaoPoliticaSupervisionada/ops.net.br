@@ -123,7 +123,7 @@ namespace AuditoriaParlamentar
             {
                 temFile = true;
 
-                if (dados.CarregaDados(file.FullName, CheckBoxDiferenca.Checked, GridViewPrevia))
+                if (dados.CarregaDados(file.FullName, CheckBoxDiferenca.Checked, GridViewPrevia, GridViewAcerto))
                 {
                     File.Delete(file.FullName);
                 }

@@ -96,6 +96,7 @@ namespace AuditoriaParlamentar.Classes
                         sqlCampos.Append("          lancamentos_senadores.DataDoc,");
                         sqlCampos.Append("          lancamentos_senadores.CnpjCpf AS agrupamento,");
                         sqlCampos.Append("          SUBSTRING(IFNULL(fornecedores.txtbeneficiario, lancamentos_senadores.Fornecedor), 1, 50) AS txtbeneficiario,");
+                        sqlCampos.Append("          0, 0, 0,");
 
                         sqlFrom.Append(" LEFT JOIN fornecedores");
                         sqlFrom.Append("        ON fornecedores.txtCNPJCPF = lancamentos_senadores.CnpjCpf");
@@ -318,8 +319,8 @@ namespace AuditoriaParlamentar.Classes
                 if (documento != null && documento != "")
                 {
                     String[] valores = documento.Split('|');
-                    sqlWhere.Append(" AND lancamentos.txtNumero  = '" + valores[0].Trim() + "'");
-                    sqlWhere.Append(" AND lancamentos.txtCNPJCPF = '" + valores[1].Trim() + "'");
+                    sqlWhere.Append(" AND lancamentos_senadores.Documento = '" + valores[0].Trim() + "'");
+                    sqlWhere.Append(" AND lancamentos_senadores.CnpjCpf   = '" + valores[1].Trim() + "'");
                 }
 
                 sqlCmd.Append(sqlCampos.ToString());
@@ -361,7 +362,7 @@ namespace AuditoriaParlamentar.Classes
                         break;
 
                     case Pesquisa.AGRUPAMENTO_DOCUMENTO:
-                        sqlCmd.Append(" GROUP BY 1, 2, 3, 4, 5");
+                        sqlCmd.Append(" GROUP BY 1, 2, 3, 4, 5, 6, 7, 8");
 
                         //if (separarMes == true)
                         //    sqlCmd.Append(" ORDER BY " + (numMes + 6).ToString() + " DESC");
@@ -474,7 +475,10 @@ namespace AuditoriaParlamentar.Classes
             sql.Append("          lancamentos_senadores.Senador,");
             sql.Append("          lancamentos_senadores.Documento,");
             sql.Append("          lancamentos_senadores.DataDoc,");
-            sql.Append("          lancamentos_senadores.Valor");
+            sql.Append("          lancamentos_senadores.Valor,");
+            sql.Append("          0,");
+            sql.Append("          0,");
+            sql.Append("          0");
             sql.Append("     FROM lancamentos_senadores");
             sql.Append("    WHERE lancamentos_senadores.CnpjCpf           = @txtCNPJCPF");
             sql.Append("      AND lancamentos_senadores.CodigoParlamentar = @CodigoParlamentar");

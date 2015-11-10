@@ -41,6 +41,17 @@ namespace AuditoriaParlamentar
                         Session["TipoPesquisa"] = "SENADOR";
                         Session["SenadorPesquisa"] = opcao;
                     }
+                    else
+                    {
+                        opcao = HttpUtility.HtmlDecode(Request.QueryString["IdShare"]);
+
+                        if (opcao != null)
+                        {
+                            Session["IniciaPesquisa"] = "SIM";
+                            Session["TipoPesquisa"] = "IdShare";
+                            Session["IdSharePesquisa"] = opcao;
+                        }
+                    }
                 }
             }
         }

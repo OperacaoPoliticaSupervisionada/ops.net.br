@@ -5,7 +5,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <script src="http://java.com/js/dtjava.js"></script>
     <style type="text/css">
         .style1
         {
@@ -23,26 +22,6 @@
             mensagem de segurança é exibida.
         </p>
     </div>
-    <script>
-            function javafxEmbed_DadosReceita_id() {
-                dtjava.embed(
-                    {
-                        id : 'DadosReceita_id',
-                        url : 'DadosReceita.jnlp',
-                        placeholder : 'javafx-app-placeholder',
-                        width : '100%',
-                        height : 450,
-                        params : { id: '<%= Id %>', cnpj: '<%= Cnpj %>', usuario: '<%= UserName %>'}
-                    },
-                    {
-                        javafx : '2.2+'
-                    },
-                    {}
-                );
-            }
-            <!-- Embed FX application into web page once page is loaded -->
-            dtjava.addOnloadCallback(javafxEmbed_DadosReceita_id);
-    </script>
     <div class="style1" 
         style="margin-right: 10px; margin-left: 10px; font-size: small;">
         Está página irá carregar um aplicativo Java para você consultar os dados do fornecedor
@@ -51,9 +30,14 @@
         <asp:HyperLink ID="HyperLink1" runat="server" Font-Bold="True" 
             NavigateUrl="~/CertificadoJava.aspx" Target="_blank">Para evitar as mensagens de segurança do Java e executar a consulta de forma automática siga este procedimento.</asp:HyperLink>
     </div>
-    <!-- Applet will be inserted here -->
-    <div id='javafx-app-placeholder'>
-    </div>
+    <script src="https://www.java.com/js/deployJava.js"></script>
+    <script>
+        var attributes = {width:'100%', height:450} ;
+        <!-- Base64 encoded string truncated below for readability -->
+        var parameters = {jnlp_href:'DadosReceita.jnlp', id:'<%= Id %>', cnpj:'<%= Cnpj %>', usuario:'<%= UserName %>'
+        } ;
+        deployJava.runApplet(attributes, parameters, '1.6');
+    </script>
     </form>
 </body>
 </html>

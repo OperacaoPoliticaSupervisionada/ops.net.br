@@ -94,7 +94,7 @@ namespace AuditoriaParlamentar.Classes
                 {
                     senado.ReadXml("http://legis.senado.gov.br/dadosabertos/senador/lista/atual");
 
-                    using (DataTable senadores = senado.Tables["Parlamentar"])
+                    using (DataTable senadores = senado.Tables["IdentificacaoParlamentar"])
                     {
                         foreach (DataRow senador in senadores.Rows)
                         {
@@ -104,24 +104,24 @@ namespace AuditoriaParlamentar.Classes
                             {
                                 banco.AddParameter("CodigoParlamentar", Convert.ToInt32(senador["CodigoParlamentar"]));
                                 banco.AddParameter("NomeParlamentar", Convert.ToString(senador["NomeParlamentar"]).ToUpper());
-                                banco.AddParameter("Url", Convert.ToString(senador["Url"]));
-                                banco.AddParameter("Foto", Convert.ToString(senador["Foto"]));
-                                banco.AddParameter("SiglaPartido", Convert.ToString(senador["SiglaPartido"]));
-                                banco.AddParameter("SiglaUf", Convert.ToString(senador["SiglaUf"]));
+                                banco.AddParameter("Url", Convert.ToString(senador["UrlPaginaParlamentar"]));
+                                banco.AddParameter("Foto", Convert.ToString(senador["UrlFotoParlamentar"]));
+                                banco.AddParameter("SiglaPartido", Convert.ToString(senador["SiglaPartidoParlamentar"]));
+                                banco.AddParameter("SiglaUf", Convert.ToString(senador["UfParlamentar"]));
                                 // Ao invés de gravar o fim do mandato grava o início
-                                banco.AddParameter("MandatoAtual", Convert.ToDateTime(senador["MandatoAtual"]).AddYears(-9).ToString("yyyyMM"));
-                                banco.ExecuteNonQuery("INSERT INTO senadores (CodigoParlamentar, NomeParlamentar, Url, Foto, SiglaPartido, SiglaUf, Ativo, MandatoAtual) VALUES (@CodigoParlamentar, @NomeParlamentar, @Url, @Foto, @SiglaPartido, @SiglaUf, 'S', @MandatoAtual)");
+                                //banco.AddParameter("MandatoAtual", Convert.ToDateTime(senador["MandatoAtual"]).AddYears(-9).ToString("yyyyMM"));
+                                banco.ExecuteNonQuery("INSERT INTO senadores (CodigoParlamentar, NomeParlamentar, Url, Foto, SiglaPartido, SiglaUf, Ativo) VALUES (@CodigoParlamentar, @NomeParlamentar, @Url, @Foto, @SiglaPartido, @SiglaUf, 'S')");
                             }
                             catch
                             {
-                                banco.AddParameter("Url", Convert.ToString(senador["Url"]));
-                                banco.AddParameter("Foto", Convert.ToString(senador["Foto"]));
-                                banco.AddParameter("SiglaPartido", Convert.ToString(senador["SiglaPartido"]));
-                                banco.AddParameter("SiglaUf", Convert.ToString(senador["SiglaUf"]));
+                                banco.AddParameter("Url", Convert.ToString(senador["UrlPaginaParlamentar"]));
+                                banco.AddParameter("Foto", Convert.ToString(senador["UrlFotoParlamentar"]));
+                                banco.AddParameter("SiglaPartido", Convert.ToString(senador["SiglaPartidoParlamentar"]));
+                                banco.AddParameter("SiglaUf", Convert.ToString(senador["UfParlamentar"]));
                                 banco.AddParameter("CodigoParlamentar", Convert.ToInt32(senador["CodigoParlamentar"]));
                                 // Ao invés de gravar o fim do mandato grava o início
-                                banco.AddParameter("MandatoAtual", Convert.ToDateTime(senador["MandatoAtual"]).AddYears(-9).ToString("yyyyMM"));
-                                banco.ExecuteNonQuery("UPDATE senadores SET Url = @Url, Foto = @Foto, SiglaPartido = @SiglaPartido, SiglaUf = @SiglaUf, Ativo = 'S', MandatoAtual = @MandatoAtual WHERE CodigoParlamentar = @CodigoParlamentar");
+                                //banco.AddParameter("MandatoAtual", Convert.ToDateTime(senador["MandatoAtual"]).AddYears(-9).ToString("yyyyMM"));
+                                banco.ExecuteNonQuery("UPDATE senadores SET Url = @Url, Foto = @Foto, SiglaPartido = @SiglaPartido, SiglaUf = @SiglaUf, Ativo = 'S' WHERE CodigoParlamentar = @CodigoParlamentar");
                             }
                         }
                     }
@@ -443,14 +443,14 @@ namespace AuditoriaParlamentar.Classes
             banco.ExecuteNonQuery(sql.ToString(), 0);
 
             //----------------- Despesas Mandato -----------------
-            sql.Clear();
-            sql.Append(" UPDATE senadores");
-            sql.Append("    SET DespesasMandato = (SELECT SUM(lancamentos_senadores.Valor)");
-			sql.Append("                             FROM lancamentos_senadores");
-            sql.Append("                            WHERE lancamentos_senadores.CodigoParlamentar  = senadores.CodigoParlamentar");
-            sql.Append("                              AND lancamentos_senadores.anoMes            >= senadores.MandatoAtual)");
+            //sql.Clear();
+            //sql.Append(" UPDATE senadores");
+            //sql.Append("    SET DespesasMandato = (SELECT SUM(lancamentos_senadores.Valor)");
+            //sql.Append("                             FROM lancamentos_senadores");
+            //sql.Append("                            WHERE lancamentos_senadores.CodigoParlamentar  = senadores.CodigoParlamentar");
+            //sql.Append("                              AND lancamentos_senadores.anoMes            >= senadores.MandatoAtual)");
 
-            banco.ExecuteNonQuery(sql.ToString(), 0);
+            //banco.ExecuteNonQuery(sql.ToString(), 0);
 
             AtualizaFornecedorUltimaNotaFiscal(banco);
         }
