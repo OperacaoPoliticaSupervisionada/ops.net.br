@@ -272,6 +272,7 @@
     </Compile>
     <Compile Include="Classes\Backup.cs" />
     <Compile Include="Classes\Comum.cs" />
+    <Compile Include="Classes\DbShare.cs" />
     <Compile Include="PesquisaFarejador.aspx.cs">
       <DependentUpon>PesquisaFarejador.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

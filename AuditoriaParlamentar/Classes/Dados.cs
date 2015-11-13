@@ -20,7 +20,7 @@ namespace AuditoriaParlamentar
         internal DateTime UltimaAtualizacao { get; set; }
         internal String DirFiguras { get; set; }
 
-        internal Boolean CarregaDados(String file, Boolean diferenca, GridView grid)
+        internal Boolean CarregaDados(String file, Boolean diferenca, GridView grid, GridView gridAcerto)
         {
             using(Banco banco = new Banco())
             {
@@ -42,6 +42,7 @@ namespace AuditoriaParlamentar
                 }
 
                 PreviaDados(grid, banco);
+                AcertoDados(gridAcerto, banco);
 
                 //DownaloadFotosProcessa(banco);
             }
@@ -64,6 +65,27 @@ namespace AuditoriaParlamentar
                 table.Load(reader);
 
                 table.Columns[0].ColumnName = "Parlamentar";
+
+                grid.DataSource = table;
+                grid.DataBind();
+            }
+        }
+
+        private void AcertoDados(GridView grid, Banco banco)
+        {
+            StringBuilder sql = new StringBuilder();
+
+            sql.Append("SELECT DISTINCT");
+            sql.Append("       lancamentos_tmp.txNomeParlamentar");
+            sql.Append("  FROM lancamentos_tmp");
+            sql.Append(" WHERE NOT EXISTS (SELECT ideCadastro FROM parlamentares WHERE lancamentos_tmp.txNomeParlamentar = parlamentares.txNomeParlamentar)");
+
+            using (MySqlDataReader reader = banco.ExecuteReader(sql.ToString(), 300))
+            {
+                DataTable table = new DataTable("denuncias");
+                table.Load(reader);
+
+                table.Columns[0].ColumnName = "Parlamentar sem ide";
 
                 grid.DataSource = table;
                 grid.DataBind();
@@ -167,6 +189,9 @@ namespace AuditoriaParlamentar
 
         internal void CarregaDadosProcessa(Banco banco)
         {
+            //Para contornar a retirada do campo ideCadastro pelo câmara mas últimas alterações do xml
+            banco.ExecuteNonQuery("UPDATE lancamentos_tmp SET ideCadastro = (SELECT ideCadastro FROM parlamentares WHERE lancamentos_tmp.txNomeParlamentar = parlamentares.txNomeParlamentar)", 300);
+
             StringBuilder sql = new StringBuilder();
 
             sql.Append("   SELECT numano,");
@@ -190,8 +215,8 @@ namespace AuditoriaParlamentar
                     banco.ExecuteNonQuery("DELETE FROM lancamentos WHERE numano = @numano AND nummes = @nummes AND ideCadastro = @ideCadastro", 0);
 
                     sql.Clear();
-                    sql.Append("INSERT INTO lancamentos (ideCadastro, txNomeParlamentar, nuCarteiraParlamentar, nuLegislatura, sgUF, sgPartido, codLegislatura, numSubCota, txtDescricao, numEspecificacaoSubCota, txtDescricaoEspecificacao, txtBeneficiario, txtCNPJCPF, txtNumero, indTipoDocumento, datEmissao, vlrDocumento, vlrGlosa, vlrLiquido, numMes, numAno, numParcela, txtPassageiro, txtTrecho, numLote, numRessarcimento)");
-                    sql.Append("SELECT ideCadastro, txNomeParlamentar, nuCarteiraParlamentar, nuLegislatura, sgUF, sgPartido, codLegislatura, numSubCota, txtDescricao, numEspecificacaoSubCota, txtDescricaoEspecificacao, txtBeneficiario, txtCNPJCPF, txtNumero, indTipoDocumento, datEmissao, vlrDocumento, vlrGlosa, vlrLiquido, numMes, numAno, numParcela, txtPassageiro, txtTrecho, numLote, numRessarcimento");
+                    sql.Append("INSERT INTO lancamentos (ideCadastro, txNomeParlamentar, nuCarteiraParlamentar, nuLegislatura, sgUF, sgPartido, codLegislatura, numSubCota, txtDescricao, numEspecificacaoSubCota, txtDescricaoEspecificacao, txtBeneficiario, txtCNPJCPF, txtNumero, indTipoDocumento, datEmissao, vlrDocumento, vlrGlosa, vlrLiquido, numMes, numAno, numParcela, txtPassageiro, txtTrecho, numLote, numRessarcimento, ide_documento_fiscal, vlrRestituicao)");
+                    sql.Append("SELECT ideCadastro, txNomeParlamentar, nuCarteiraParlamentar, nuLegislatura, sgUF, sgPartido, codLegislatura, numSubCota, txtDescricao, numEspecificacaoSubCota, txtDescricaoEspecificacao, txtBeneficiario, txtCNPJCPF, txtNumero, indTipoDocumento, datEmissao, vlrDocumento, vlrGlosa, (vlrLiquido * -1), numMes, numAno, numParcela, txtPassageiro, txtTrecho, numLote, numRessarcimento, ide_documento_fiscal, vlrRestituicao");
                     sql.Append("  FROM lancamentos_tmp");
                     sql.Append(" WHERE lancamentos_tmp.numano      = @numano");
                     sql.Append("   AND lancamentos_tmp.nummes      = @nummes");
@@ -249,7 +274,7 @@ namespace AuditoriaParlamentar
             //-------------------- Ajustes --------------------
 
             // Joga dados da subcota 15 LOCAÇÃO DE VEÍCULOS AUTOMOTORES OU FRETAMENTO DE EMBARCAÇÕES 
-            // para subcota 120	LOCAÇÃO OU FRETAMENTO DE VEÍCULOS AUTOMOTORES para unificar os dados.
+            // para subcota 120LOCAÇÃO OU FRETAMENTO DE VEÍCULOS AUTOMOTORES para unificar os dados.
             banco.ExecuteNonQuery("UPDATE lancamentos SET numSubCota = 120, txtDescricao = 'LOCAÇÃO OU FRETAMENTO DE VEÍCULOS AUTOMOTORES' WHERE numSubCota = 15", 0);
 
             // Joga dados da subcota 9 PASSAGENS AÉREAS E FRETAMENTO DE AERONAVES

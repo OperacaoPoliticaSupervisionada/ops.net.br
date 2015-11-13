@@ -221,7 +221,11 @@ namespace AuditoriaParlamentar
                     break;
 
                 case Pesquisa.AGRUPAMENTO_DOCUMENTO:
-                    inicioColunaValores = 6;
+                    inicioColunaValores = 9;
+
+                    e.Row.Cells[6].Visible = false;
+                    e.Row.Cells[7].Visible = false;
+                    e.Row.Cells[8].Visible = false;
                     break;
 
             }
@@ -297,6 +301,21 @@ namespace AuditoriaParlamentar
 
                         try { e.Row.Cells[3].Text = Convert.ToDateTime(e.Row.Cells[3].Text).ToString("dd/MM/yyyy"); }
                         catch { }
+
+                        long refDoc;
+
+                        if (Int64.TryParse(e.Row.Cells[8].Text, out refDoc))
+                        {
+                            if (refDoc > 0)
+                            {
+                                HyperLink url = new HyperLink();
+                                url.NavigateUrl = "http://www.camara.gov.br/cota-parlamentar/documentos/publ/" + e.Row.Cells[6].Text + "/" + e.Row.Cells[7].Text + "/" + e.Row.Cells[8].Text + ".pdf";
+                                url.Target = "_blank";
+                                url.Text = e.Row.Cells[2].Text;
+                                e.Row.Cells[2].Controls.Clear();
+                                e.Row.Cells[2].Controls.Add(url);
+                            }
+                        }
 
                         break;
 

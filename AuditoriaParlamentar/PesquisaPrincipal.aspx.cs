@@ -14,6 +14,7 @@ namespace AuditoriaParlamentar
     {
         Double mTotalGeral = 0;
         Boolean mAuthenticated;
+        Int32 mIdShare = 0;
 
         const String GRUPO_DEPUTADO_FEDERAL = "Deputado Federal";
         const String GRUPO_SENADOR = "Senador";
@@ -21,6 +22,14 @@ namespace AuditoriaParlamentar
         protected void Page_Load(object sender, EventArgs e)
         {
             mAuthenticated = System.Web.HttpContext.Current.User.Identity.IsAuthenticated;
+
+            if (mAuthenticated)
+            {
+                if (System.Web.HttpContext.Current.User.IsInRole("REVISOR"))
+                {
+                    ButtonShare.Visible = true;
+                }
+            }
 
             if (!IsPostBack)
             {
@@ -184,6 +193,10 @@ namespace AuditoriaParlamentar
 
                     Session.Remove("SenadorPesquisa");
                 }
+                else if (Convert.ToString(Session["TipoPesquisa"]) == "IdShare")
+                {
+                    Int32.TryParse(Session["IdSharePesquisa"].ToString(), out mIdShare);
+                }
 
                 Session.Remove("TipoPesquisa");
 
@@ -198,6 +211,27 @@ namespace AuditoriaParlamentar
 
         private void Pesquisar()
         {
+            if (mIdShare > 0)
+            {
+                ParametrosShare parametros = DbShare.Carregar(mIdShare);
+
+                if (parametros == null)
+                    return;
+
+                DropDownListGrupo.SelectedValue = parametros.Cargo;
+                DropDownListAgrupamento.SelectedValue = parametros.Agrupamento;
+                DropDownListPerido.SelectedValue = Pesquisa.PERIODO_INFORMAR;
+                hidListBoxParlamentar.Value = parametros.Parlamentares;
+                hidListBoxDespesa.Value = parametros.Despesas;
+                hidListBoxFornecedor.Value = parametros.Fornecedores;
+                hidListBoxPartido.Value = parametros.Partidos;
+                hidListBoxUF.Value = parametros.Ufs;
+                DropDownListMesInicial.SelectedValue = parametros.MesInicial.ToString("00");
+                DropDownListAnoInicial.SelectedValue = parametros.AnoInicial.ToString("00");
+                DropDownListMesFinal.SelectedValue = parametros.MesFinal.ToString("00");
+                DropDownListAnoFinal.SelectedValue = parametros.AnoFinal.ToString("00");
+            }
+
             if (CheckBoxSepararMes.Checked == true && DropDownListPerido.SelectedValue == Pesquisa.PERIODO_INFORMAR)
             {
                 DateTime dt1 = new DateTime(Convert.ToInt32(DropDownListAnoInicial.SelectedValue), Convert.ToInt32(DropDownListMesInicial.SelectedValue), 1);
@@ -275,6 +309,7 @@ namespace AuditoriaParlamentar
 
             if (GridViewResultado.Rows.Count == 1000)
             {
+                LabelMaximo.Text = "O resultado está limitado a 1.000 registros para evitar sobrecarga.";
                 LabelMaximo.Visible = true;
             }
         }
@@ -355,7 +390,12 @@ namespace AuditoriaParlamentar
                     break;
 
                 case Pesquisa.AGRUPAMENTO_DOCUMENTO:
-                    inicioColunaValores = 6;
+                    inicioColunaValores = 9;
+
+                    e.Row.Cells[6].Visible = false;
+                    e.Row.Cells[7].Visible = false;
+                    e.Row.Cells[8].Visible = false;
+
                     break;
 
             }
@@ -435,7 +475,22 @@ namespace AuditoriaParlamentar
 
                         try { e.Row.Cells[3].Text = Convert.ToDateTime(e.Row.Cells[3].Text).ToString("dd/MM/yyyy"); }
                         catch { }
-                        
+
+                        long refDoc;
+
+                        if (Int64.TryParse(e.Row.Cells[8].Text, out refDoc))
+                        {
+                            if (refDoc > 0)
+                            {
+                                HyperLink url = new HyperLink();
+                                url.NavigateUrl = "http://www.camara.gov.br/cota-parlamentar/documentos/publ/" + e.Row.Cells[6].Text + "/" + e.Row.Cells[7].Text + "/" + e.Row.Cells[8].Text + ".pdf";
+                                url.Target = "_blank";
+                                url.Text = e.Row.Cells[2].Text;
+                                e.Row.Cells[2].Controls.Clear();
+                                e.Row.Cells[2].Controls.Add(url);
+                            }
+                        }
+
                         break;
 
                     default:
@@ -485,6 +540,41 @@ namespace AuditoriaParlamentar
                     LabelUltimaAtualizacao.Text = "Última Atualização: " + dadosSenadores.UltimaAtualizacao.ToString("dd/MM/yyyy");
                     break;
             }
+        }
+
+        protected void ButtonShare_Click(object sender, EventArgs e)
+        {
+            if (DropDownListPerido.SelectedValue != Pesquisa.PERIODO_INFORMAR)
+            {
+                Response.Write("<script>alert('Informe o período com mês e ano.')</script>");
+                return;
+            }
+
+            DataTable dt = Session["pesquisa0"] as DataTable;
+
+            if (dt == null || dt.Rows.Count == 0)
+            {
+                Response.Write("<script>alert('Faça a pesquisa.')</script>");
+                return;
+            }
+
+            ParametrosShare parametros = new ParametrosShare();
+            parametros.Cargo = DropDownListGrupo.SelectedValue;
+            parametros.Agrupamento = DropDownListAgrupamento.SelectedValue;
+            parametros.Parlamentares = hidListBoxParlamentar.Value;
+            parametros.Despesas = hidListBoxDespesa.Value;
+            parametros.Fornecedores = hidListBoxFornecedor.Value;
+            parametros.Partidos = hidListBoxPartido.Value;
+            parametros.Ufs = hidListBoxUF.Value;
+            parametros.MesInicial = Convert.ToInt32(DropDownListMesInicial.SelectedValue);
+            parametros.AnoInicial = Convert.ToInt32(DropDownListAnoInicial.SelectedValue);
+            parametros.MesFinal = Convert.ToInt32(DropDownListMesFinal.SelectedValue);
+            parametros.AnoFinal = Convert.ToInt32(DropDownListAnoFinal.SelectedValue);
+
+            DbShare.Incluir(parametros);
+
+            LabelMaximo.Text = "http://ops.net.br/PesquisaInicio.aspx?IdShare=" + parametros.Id.ToString();
+            LabelMaximo.Visible = true;
         }
     }
 }
