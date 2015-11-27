@@ -135,17 +135,17 @@ namespace AuditoriaParlamentar
                 }
 
                 DropDownListPerido.Attributes.Add("onchange", "showHiddenPeriodo(this);");
-                
-                ListBoxParlamentar.Attributes.Add("onkeydown", "deleteFromList(document.getElementById('" + ListBoxParlamentar.ClientID + "'), document.getElementById('" + hidListBoxParlamentar.ClientID + "'));");
-                ListBoxDespesa.Attributes.Add("onkeydown", "deleteFromList(document.getElementById('" + ListBoxDespesa.ClientID + "'), document.getElementById('" + hidListBoxDespesa.ClientID + "'));");
-                ListBoxFornecedor.Attributes.Add("onkeydown", "deleteFromList(document.getElementById('" + ListBoxFornecedor.ClientID + "'), document.getElementById('" + hidListBoxFornecedor.ClientID + "'));");
-                ListBoxUF.Attributes.Add("onkeydown", "deleteFromList(document.getElementById('" + ListBoxUF.ClientID + "'), document.getElementById('" + hidListBoxUF.ClientID + "'));");
-                ListBoxPartido.Attributes.Add("onkeydown", "deleteFromList(document.getElementById('" + ListBoxPartido.ClientID + "'), document.getElementById('" + hidListBoxPartido.ClientID + "'));");
+
+                ListBoxParlamentar.Attributes.Add("onkeydown", "deleteFromList(event, document.getElementById('" + ListBoxParlamentar.ClientID + "'), document.getElementById('" + hidListBoxParlamentar.ClientID + "'));");
+                ListBoxDespesa.Attributes.Add("onkeydown", "deleteFromList(event, document.getElementById('" + ListBoxDespesa.ClientID + "'), document.getElementById('" + hidListBoxDespesa.ClientID + "'));");
+                ListBoxFornecedor.Attributes.Add("onkeydown", "deleteFromList(event, document.getElementById('" + ListBoxFornecedor.ClientID + "'), document.getElementById('" + hidListBoxFornecedor.ClientID + "'));");
+                ListBoxUF.Attributes.Add("onkeydown", "deleteFromList(event, document.getElementById('" + ListBoxUF.ClientID + "'), document.getElementById('" + hidListBoxUF.ClientID + "'));");
+                ListBoxPartido.Attributes.Add("onkeydown", "deleteFromList(event, document.getElementById('" + ListBoxPartido.ClientID + "'), document.getElementById('" + hidListBoxPartido.ClientID + "'));");
             }
 
             ClientScriptManager clientScriptManager = this.ClientScript;
             clientScriptManager.RegisterClientScriptBlock(DropDownListPerido.GetType(), "onchangeListPeriodo", "function showHiddenPeriodo(control){ if(control.options[control.selectedIndex].value == '" + Pesquisa.PERIODO_INFORMAR + "'){ document.getElementById('tablePeriodo').style.display = 'block'; } else { document.getElementById('tablePeriodo').style.display = 'none';}}", true);
-            clientScriptManager.RegisterClientScriptBlock(this.GetType(), "onKeyList", "function deleteFromList(controlOri, controlHidden){ if (event.keyCode == 46) { for(var i=(controlOri.options.length - 1); i>=0; i--) { if(controlOri.options[i].selected){ controlHidden.value = controlHidden.value.replace(controlOri.options[i].text + '|' + controlOri.options[i].value + '|', ''); controlOri.options[i] = null;}} } }", true);
+            clientScriptManager.RegisterClientScriptBlock(this.GetType(), "onKeyList", "function deleteFromList(event, controlOri, controlHidden){ if ((event.which || event.keyCode) == 46) { for(var i=(controlOri.options.length - 1); i>=0; i--) { if(controlOri.options[i].selected){ controlHidden.value = controlHidden.value.replace(controlOri.options[i].text + '|' + controlOri.options[i].value + '|', ''); controlOri.options[i] = null;}} } }", true);
             clientScriptManager.RegisterClientScriptBlock(this.GetType(), "addListBox", "function addListBox(controlOri, controlDes, controlHidden){ var opt = document.createElement('option'); opt.text = controlOri.options[controlOri.selectedIndex].text; opt.value = controlOri.options[controlOri.selectedIndex].value; var i = 0; for(i=0; i < controlDes.options.length; i++){ if(controlDes.options[i].value == opt.value) { return; } } controlDes.options.add(opt); controlHidden.value = controlHidden.value + opt.text + '|' + opt.value + '|';}", true);
             clientScriptManager.RegisterClientScriptBlock(this.GetType(), "addListBox2", "function addListBox2(controlOri, controlDes, controlHidden){ var opt = document.createElement('option'); opt.text = controlOri.value; opt.value = controlOri.value; if(opt.value == ''){ return false; } var i = 0; for(i=0; i < controlDes.options.length; i++){ if(controlDes.options[i].value == opt.value) { return; } } controlDes.options.add(opt); controlHidden.value = controlHidden.value + opt.text + '|' + opt.value + '|'; controlOri.value = '';}", true);
 

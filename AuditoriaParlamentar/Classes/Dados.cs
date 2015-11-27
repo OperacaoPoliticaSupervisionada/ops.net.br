@@ -190,7 +190,8 @@ namespace AuditoriaParlamentar
         internal void CarregaDadosProcessa(Banco banco)
         {
             //Para contornar a retirada do campo ideCadastro pelo câmara mas últimas alterações do xml
-            banco.ExecuteNonQuery("UPDATE lancamentos_tmp SET ideCadastro = (SELECT ideCadastro FROM parlamentares WHERE lancamentos_tmp.txNomeParlamentar = parlamentares.txNomeParlamentar)", 300);
+            //Para contornar o problema dos valores virem aleatoriamente com sinal negativo
+            banco.ExecuteNonQuery("UPDATE lancamentos_tmp SET ideCadastro = (SELECT ideCadastro FROM parlamentares WHERE lancamentos_tmp.txNomeParlamentar = parlamentares.txNomeParlamentar), vlrLiquido = ABS(vlrLiquido)", 300);
 
             StringBuilder sql = new StringBuilder();
 
@@ -216,7 +217,7 @@ namespace AuditoriaParlamentar
 
                     sql.Clear();
                     sql.Append("INSERT INTO lancamentos (ideCadastro, txNomeParlamentar, nuCarteiraParlamentar, nuLegislatura, sgUF, sgPartido, codLegislatura, numSubCota, txtDescricao, numEspecificacaoSubCota, txtDescricaoEspecificacao, txtBeneficiario, txtCNPJCPF, txtNumero, indTipoDocumento, datEmissao, vlrDocumento, vlrGlosa, vlrLiquido, numMes, numAno, numParcela, txtPassageiro, txtTrecho, numLote, numRessarcimento, ide_documento_fiscal, vlrRestituicao)");
-                    sql.Append("SELECT ideCadastro, txNomeParlamentar, nuCarteiraParlamentar, nuLegislatura, sgUF, sgPartido, codLegislatura, numSubCota, txtDescricao, numEspecificacaoSubCota, txtDescricaoEspecificacao, txtBeneficiario, txtCNPJCPF, txtNumero, indTipoDocumento, datEmissao, vlrDocumento, vlrGlosa, (vlrLiquido * -1), numMes, numAno, numParcela, txtPassageiro, txtTrecho, numLote, numRessarcimento, ide_documento_fiscal, vlrRestituicao");
+                    sql.Append("SELECT ideCadastro, txNomeParlamentar, nuCarteiraParlamentar, nuLegislatura, sgUF, sgPartido, codLegislatura, numSubCota, txtDescricao, numEspecificacaoSubCota, txtDescricaoEspecificacao, txtBeneficiario, txtCNPJCPF, txtNumero, indTipoDocumento, datEmissao, vlrDocumento, vlrGlosa, vlrLiquido, numMes, numAno, numParcela, txtPassageiro, txtTrecho, numLote, numRessarcimento, ide_documento_fiscal, vlrRestituicao");
                     sql.Append("  FROM lancamentos_tmp");
                     sql.Append(" WHERE lancamentos_tmp.numano      = @numano");
                     sql.Append("   AND lancamentos_tmp.nummes      = @nummes");
