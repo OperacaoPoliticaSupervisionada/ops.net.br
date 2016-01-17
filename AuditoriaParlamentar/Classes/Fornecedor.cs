@@ -11,50 +11,55 @@ using System.Collections;
 
 namespace AuditoriaParlamentar.Classes
 {
-    internal class Fornecedor
+    public class Fornecedor
     {
-        internal String IdAtualizacao { get; set; }
-        internal String Cnpj { get; set; }
-        internal String DataAbertura { get; set; }
-        internal String RazaoSocial { get; set; }
-        internal String NomeFantasia { get; set; }
-        internal String AtividadePrincipal { get; set; }
-        internal String NaturezaJuridica { get; set; }
-        internal String Logradouro { get; set; }
-        internal String Numero { get; set; }
-        internal String Complemento { get; set; }
-        internal String Cep { get; set; }
-        internal String Bairro { get; set; }
-        internal String Cidade { get; set; }
-        internal String Uf { get; set; }
-        internal String Situacao { get; set; }
-        internal String DataSituacao { get; set; }
-        internal String MotivoSituacao { get; set; }
-        internal String SituacaoEspecial { get; set; }
-        internal String DataSituacaoEspecial { get; set; }
-        internal String AtividadeSecundaria01 { get; set; }
-        internal String AtividadeSecundaria02 { get; set; }
-        internal String AtividadeSecundaria03 { get; set; }
-        internal String AtividadeSecundaria04 { get; set; }
-        internal String AtividadeSecundaria05 { get; set; }
-        internal String AtividadeSecundaria06 { get; set; }
-        internal String AtividadeSecundaria07 { get; set; }
-        internal String AtividadeSecundaria08 { get; set; }
-        internal String AtividadeSecundaria09 { get; set; }
-        internal String AtividadeSecundaria10 { get; set; }
-        internal String AtividadeSecundaria11 { get; set; }
-        internal String AtividadeSecundaria12 { get; set; }
-        internal String AtividadeSecundaria13 { get; set; }
-        internal String AtividadeSecundaria14 { get; set; }
-        internal String AtividadeSecundaria15 { get; set; }
-        internal String AtividadeSecundaria16 { get; set; }
-        internal String AtividadeSecundaria17 { get; set; }
-        internal String AtividadeSecundaria18 { get; set; }
-        internal String AtividadeSecundaria19 { get; set; }
-        internal String AtividadeSecundaria20 { get; set; }
-        internal Boolean Doador { get; set; }
-        internal String UsuarioInclusao { get; set; }
-        internal DateTime DataInclusao { get; set; }
+        public String IdAtualizacao { get; set; }
+        public String Cnpj { get; set; }
+        public String DataAbertura { get; set; }
+        public String RazaoSocial { get; set; }
+        public String NomeFantasia { get; set; }
+        public String AtividadePrincipal { get; set; }
+        public String NaturezaJuridica { get; set; }
+        public String Logradouro { get; set; }
+        public String Numero { get; set; }
+        public String Complemento { get; set; }
+        public String Cep { get; set; }
+        public String Bairro { get; set; }
+        public String Cidade { get; set; }
+        public String Uf { get; set; }
+        public String Situacao { get; set; }
+        public String DataSituacao { get; set; }
+        public String MotivoSituacao { get; set; }
+        public String SituacaoEspecial { get; set; }
+        public String DataSituacaoEspecial { get; set; }
+
+        public String Email { get; set; }
+        public String Telefone { get; set; }
+        public String EnteFederativoResponsavel { get; set; }
+
+        public String AtividadeSecundaria01 { get; set; }
+        public String AtividadeSecundaria02 { get; set; }
+        public String AtividadeSecundaria03 { get; set; }
+        public String AtividadeSecundaria04 { get; set; }
+        public String AtividadeSecundaria05 { get; set; }
+        public String AtividadeSecundaria06 { get; set; }
+        public String AtividadeSecundaria07 { get; set; }
+        public String AtividadeSecundaria08 { get; set; }
+        public String AtividadeSecundaria09 { get; set; }
+        public String AtividadeSecundaria10 { get; set; }
+        public String AtividadeSecundaria11 { get; set; }
+        public String AtividadeSecundaria12 { get; set; }
+        public String AtividadeSecundaria13 { get; set; }
+        public String AtividadeSecundaria14 { get; set; }
+        public String AtividadeSecundaria15 { get; set; }
+        public String AtividadeSecundaria16 { get; set; }
+        public String AtividadeSecundaria17 { get; set; }
+        public String AtividadeSecundaria18 { get; set; }
+        public String AtividadeSecundaria19 { get; set; }
+        public String AtividadeSecundaria20 { get; set; }
+        public Boolean Doador { get; set; }
+        public String UsuarioInclusao { get; set; }
+        public DateTime DataInclusao { get; set; }
 
         internal Boolean EstaAtualizado(String cnpj)
         {
@@ -170,6 +175,15 @@ namespace AuditoriaParlamentar.Classes
                         try { SituacaoEspecial = Convert.ToString(reader["SituacaoEspecial"]); }
                         catch { SituacaoEspecial = ""; }
 
+                        try { Email = Convert.ToString(reader["Email"]); }
+                        catch { Email = ""; }
+
+                        try { Telefone = Convert.ToString(reader["Telefone"]); }
+                        catch { Telefone = ""; }
+
+                        try { EnteFederativoResponsavel = Convert.ToString(reader["EnteFederativoResponsavel"]); }
+                        catch { EnteFederativoResponsavel = ""; }
+
                         try { AtividadeSecundaria01 = Convert.ToString(reader["AtividadeSecundaria01"]); }
                         catch { AtividadeSecundaria01 = ""; }
 
@@ -236,6 +250,8 @@ namespace AuditoriaParlamentar.Classes
                         try { DataSituacaoEspecial = Convert.ToString(reader["DataSituacaoEspecial"]); }
                         catch { DataSituacaoEspecial = ""; }
 
+                        try { DataInclusao = Convert.ToDateTime(reader["DataInclusao"]); }
+                        catch { DataInclusao = DateTime.MinValue; }
                     }
 
                     reader.Close();
@@ -275,6 +291,11 @@ namespace AuditoriaParlamentar.Classes
                     banco.AddParameter("SituacaoEspecial", SituacaoEspecial);
                     banco.AddParameter("DataSituacaoEspecial", DataSituacaoEspecial);
                     banco.AddParameter("UsuarioInclusao", UsuarioInclusao);
+
+                    banco.AddParameter("Email", Email);
+                    banco.AddParameter("Telefone", Telefone);
+                    banco.AddParameter("EnteFederativoResponsavel", EnteFederativoResponsavel);
+
                     banco.AddParameter("AtividadeSecundaria01", AtividadeSecundaria01);
                     banco.AddParameter("AtividadeSecundaria02", AtividadeSecundaria02);
                     banco.AddParameter("AtividadeSecundaria03", AtividadeSecundaria03);
@@ -317,6 +338,11 @@ namespace AuditoriaParlamentar.Classes
                     sql.Append("       SituacaoEspecial      = @SituacaoEspecial,");
                     sql.Append("       DataSituacaoEspecial  = @DataSituacaoEspecial,");
                     sql.Append("       DataAbertura          = @DataAbertura,");
+
+                    sql.Append("       Email                = @Email,");
+                    sql.Append("       Telefone             = @Telefone,");
+                    sql.Append("       EnteFederativoResponsavel = @EnteFederativoResponsavel,");
+
                     sql.Append("       AtividadeSecundaria01 = @AtividadeSecundaria01,");
                     sql.Append("       AtividadeSecundaria02 = @AtividadeSecundaria02,");
                     sql.Append("       AtividadeSecundaria03 = @AtividadeSecundaria03,");

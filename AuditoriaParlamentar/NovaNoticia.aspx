@@ -1,8 +1,7 @@
-﻿<%@ Page Title="OPS - Operação Política Supervisionada" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="NovaNoticia.aspx.cs" Inherits="AuditoriaParlamentar.NovaNoticia" %>
+﻿<%@ Page Title="OPS - Operação Política Supervisionada" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" 
+    CodeBehind="NovaNoticia.aspx.cs" Inherits="AuditoriaParlamentar.NovaNoticia" ClientIDMode="Static" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
-    <link rel="stylesheet" href="Styles/themes/start/jquery.ui.all.css"/>
-    <link rel="stylesheet" href="Styles/Master.css"/>
-    <script src="Scripts/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="Scripts/MaxLength.min.js"></script>
     <script type="text/javascript">
         $(function () {
@@ -18,116 +17,48 @@
                 CharacterCountControl: $('#counterLink')
             });
         });
+
+        function AnexoValidation(source, args) {
+            args.IsValid = $("#FileUpload").val() != '';
+        }
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <table>
-        <tr>
-            <td>
-                <asp:Button ID="ButtonVoltar" runat="server" Text="Voltar" 
-                    CssClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                    Font-Size="Small" onclick="ButtonVoltar_Click" />
-            </td>
-            <td>
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-        </tr>
-        <tr>
-            <td>
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-        </tr>
-        <tr>
-            <td>
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-            <td>
-                <asp:ValidationSummary ID="ValidationSummary" runat="server" CssClass="failureNotification"
-                    ValidationGroup="ValidationGroup" />
-            </td>
-            <td>
-                &nbsp;</td>
-        </tr>
-        <tr>
-            <td valign="top">
-                <asp:Label ID="Label3" runat="server" Text="Texto da Notícia:"></asp:Label>
-            </td>
-            <td valign="top">
-                            <asp:RequiredFieldValidator ID="TextoValidator" runat="server" 
-                                ControlToValidate="TextBoxNoticia" CssClass="failureNotification" 
-                                ErrorMessage="Texto não informado." SetFocusOnError="True" 
-                                ValidationGroup="ValidationGroup">*</asp:RequiredFieldValidator>
-                            </td>
-            <td>
-                <asp:TextBox ID="TextBoxNoticia" runat="server" MaxLength="255" Rows="5" TextMode="MultiLine"
-                    Width="600px" ValidationGroup="ValidationGroup"></asp:TextBox>
-                        </td>
-            <td valign="bottom">
-                <div id="counterTexto" style="font-size: small; color: #0000FF;">    
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <asp:Label ID="Label4" runat="server" Text="Link da Notícia:"></asp:Label>
-            </td>
-            <td>
-                            &nbsp;</td>
-            <td>
-                <asp:TextBox ID="TextBoxLink" runat="server" MaxLength="255" Width="600px"></asp:TextBox>
-            </td>
-            <td>
-                <div id="counterLink" style="font-size: small; color: #0000FF;">    
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <asp:Label ID="Label5" runat="server" Text="Imagem PNG (100 x 100):"></asp:Label>
-            </td>
-            <td>
-                            <asp:CustomValidator ID="AnexoValidator" runat="server" 
-                                CssClass="failureNotification" 
-                                ValidationGroup="DenunciaGroup">*</asp:CustomValidator>
-                            </td>
-            <td>
-                            <asp:FileUpload ID="FileUpload" runat="server" 
-                                CssClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" />
-                        </td>
-            <td style="text-align: right">
-                &nbsp;</td>
-        </tr>
-        <tr>
-            <td>
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-            <td style="text-align: right">
-                <asp:HiddenField ID="HiddenFieldIdNoticia" runat="server" />
-                <asp:Button ID="ButtonEnviar" runat="server" OnClick="ButtonEnviar_Click" Text="Incluir Notícia"
-                    ValidationGroup="ValidationGroup" 
-                                CssClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                                Font-Size="Small" />
-                        </td>
-            <td style="text-align: right">
-                &nbsp;</td>
-        </tr>
-        <tr>
-            <td>
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
-        </tr>
-    </table>
+    <div class="row">
+        <div class="col-md-12">
+            <asp:Label runat="server" Text="Texto da Notícia:"></asp:Label>
+            <asp:RequiredFieldValidator ID="TextoValidator" runat="server"
+                ControlToValidate="TextBoxNoticia" SetFocusOnError="True" CssClass="small pull-right text-danger"
+                ValidationGroup="ValidationGroup">* Texto não informado.</asp:RequiredFieldValidator>
+            <asp:TextBox ID="TextBoxNoticia" runat="server" MaxLength="255" Rows="5" TextMode="MultiLine"
+                ValidationGroup="ValidationGroup" CssClass="form-control"></asp:TextBox>
+            <div id="counterTexto" class="show small text-primary"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <asp:Label runat="server" Text="Link da Notícia:"></asp:Label>
+            <asp:RequiredFieldValidator ID="LinkValidator" runat="server"
+                ControlToValidate="TextBoxLink" SetFocusOnError="True" CssClass="small pull-right text-danger"
+                ValidationGroup="ValidationGroup">* Link não informado.</asp:RequiredFieldValidator>
+            <asp:TextBox ID="TextBoxLink" runat="server" MaxLength="255" CssClass="form-control"></asp:TextBox>
+            <div id="counterLink" class="show small text-primary"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <asp:Label runat="server" Text="Imagem PNG (100 x 100):"></asp:Label>
+            <asp:CustomValidator ID="AnexoValidator" runat="server" SetFocusOnError="True" CssClass="small pull-right text-danger"
+                ValidationGroup="ValidationGroup" ClientValidationFunction="AnexoValidation();">* Imagem obrigatória</asp:CustomValidator>
+            <asp:FileUpload ID="FileUpload" runat="server" CssClass="form-control" />
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <asp:Button ID="ButtonEnviar" runat="server" OnClick="ButtonEnviar_Click" Text="Incluir Notícia"
+                ValidationGroup="ValidationGroup" CssClass="btn btn-success" />
+            <asp:HyperLink runat="server" NavigateUrl="~/Noticias.aspx" CssClass="btn btn-default">Voltar</asp:HyperLink>
+        </div>
+    </div>
 </asp:Content>

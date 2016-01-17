@@ -3,70 +3,114 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head id="Head1" runat="server">
-    <title>Auditoria Parlamentar</title>
-    <link href="~/Styles/Master.css" rel="stylesheet" type="text/css" />
+    <title>OPS - Operação Política Supervisionada</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/") %>assets/js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/") %>assets/js/bootstrap.min.js"></script>
+
+
+    <!-- Bootstrap Core CSS -->
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link href="~/assets/css/landing-page.css" rel="stylesheet" />
+
+    <!-- Custom Fonts -->
+    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
     </asp:ContentPlaceHolder>
     <style type="text/css">
+        #content { background-image: url('<%= ResolveClientUrl("~/") %>Figuras/logo_opaca.png'); background-repeat: no-repeat; background-position: center center; }
+        .navbar { margin-bottom: 10px; }
     </style>
 </head>
 <body>
-    <form id="Form1" runat="server">
-    <div class="page">
-        <div class="header">
-            <div class="clear hideSkiplink">
-                <div class="divLogo">
-                    <asp:Image ID="ImageLogo" runat="server"
-                        ImageUrl="~/Figuras/logo_ops5.png" CssClass="logotipo"/>
-
+    <form id="form_auditoria" runat="server">
+        <nav class="navbar navbar-default navbar-static-top topnav" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Alternar Navegação</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand topnav" href="~/" runat="server" title="OPS - Operação Política Supervisionada" style="padding: 5px 15px;">
+                        <asp:Image ID="ImageLogo" runat="server" ImageUrl="~/Figuras/logo_ops5.png" CssClass="logotipo"
+                            AlternateText="OPS - Operação Política Supervisionada" Width="60px" Height="40px" /></a>
                 </div>
-                <div class="loginDisplay">
-                    <asp:LoginView ID="HeadLoginView" runat="server">
-                        <AnonymousTemplate>
-                            [ <a href="/Account/Login.aspx" id="HeadLoginStatus" runat="server">Entrar</a> ]
-                        </AnonymousTemplate>
-                        <LoggedInTemplate>
-                            Olá <span class="bold">
-                                <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Account/UpdateAccount.aspx">
-                                    <asp:LoginName ID="HeadLoginName" runat="server" />
-                            </span></asp:HyperLink> [
-                            <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutAction="Redirect" LogoutText="Sair"
-                                LogoutPageUrl="~/" />
-                            ]
-                        </LoggedInTemplate>
-                    </asp:LoginView>
-                    <iframe frameborder="0" height="0px" width="0px" src="/Status.aspx"></iframe>
-                </div>
-                <div class="divTexto">
-                    <center>
-                        <asp:Label ID="Label1" runat="server" Font-Bold="True" Font-Size="Medium" ForeColor="White"
-                            Text="OPERAÇÃO POLÍTICA SUPERVISIONADA"></asp:Label>
-                        <br />
-                        <asp:Label ID="Label2" runat="server" Font-Bold="False" Font-Size="Small" ForeColor="Yellow"
-                            
-                            Text="O controle social é indispensável para combatermos a corrupção em nosso país."></asp:Label>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-usd"></i>&nbsp;Auditar<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" id="HyperLinkDeputadoFederal" runat="server"><i class="glyphicon glyphicon-usd"></i>&nbsp;Deputado Federal</a></li>
+                                <li><a href="#" id="HyperLinkSenador" runat="server"><i class="glyphicon glyphicon-usd"></i>&nbsp;Senador</a></li>
+                            </ul>
+                        </li>
+                        <asp:PlaceHolder ID="plcRevisor" runat="server">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Revisar<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="~/Revisao.aspx" runat="server"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;Revisão</a></li>
+                                    <li><a href="~/RelParlamentarFornecedor.aspx" runat="server"><i class="glyphicon glyphicon-stats"></i>&nbsp;Relatórios</a></li>
+                                </ul>
+                            </li>
+                        </asp:PlaceHolder>
+                        <li><a href="~/Dossies.aspx" runat="server"><i class="glyphicon glyphicon-bullhorn"></i>&nbsp;Dossiês</a></li>
+                        <li><a href="~/CidadesPendencia.aspx" runat="server"><i class="glyphicon glyphicon-warning-sign"></i>&nbsp;Pendências</a></li>
+                         <% if (autenticado)
+                             { %>
+                                <li><a href="~/Denuncias.aspx" runat="server"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;Denúncias</a></li>
+                                <%} %>
 
-                    </center>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mais<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <% if (autenticado)
+                                    { %>
+                                <li><a href="~/Membros.aspx" runat="server"><i class="glyphicon glyphicon-user"></i>&nbsp;Membros</a></li>
+                                <%} %>
+                                <li><a href="~/Noticias.aspx" runat="server"><i class="glyphicon glyphicon-comment"></i>&nbsp;Notícias</a></li>
+                                <%--<li><a href="~/Sobre.aspx" runat="server"><i class="glyphicon glyphicon-info-sign"></i>&nbsp;Sobre</a></li>--%>
+                                <li><a href="http://luciobig.com.br/o-que-e-ops/" target="_blank"><i class="glyphicon glyphicon-info-sign"></i>&nbsp;Sobre</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <asp:LoginView ID="HeadLoginView" runat="server">
+                            <AnonymousTemplate>
+                                <li><a href="~/Account/Login.aspx" runat="server"><i class="glyphicon glyphicon-log-in"></i>&nbsp;Entrar</a></li>
+                            </AnonymousTemplate>
+                            <LoggedInTemplate>
+                                <li><a href="~/Account/UpdateAccount.aspx" runat="server"><i class='glyphicon glyphicon-user'></i>
+                                    <asp:LoginName ID="LoginName1" runat="server" />
+                                </a></li>
+                                <li>
+                                    <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutAction="Redirect" LogoutText="<i class='glyphicon glyphicon-log-in'></i>&nbsp;Sair" LogoutPageUrl="~/" />
+                                </li>
+                            </LoggedInTemplate>
+                        </asp:LoginView>
+                    </ul>
                 </div>
-                    <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu"
-                        IncludeStyleBlock="false" Orientation="Horizontal">
-                        <Items>
-                            <asp:MenuItem NavigateUrl="~/Default.aspx" Text="Início" Value="Início" />
-                            <asp:MenuItem NavigateUrl="~/PesquisaInicio.aspx" Text="Auditar" 
-                                Value="Auditar"></asp:MenuItem>
-                            <asp:MenuItem NavigateUrl="~/Dossies.aspx" Text="Dossiês" Value="Dossiês">
-                            </asp:MenuItem>
-                            <asp:MenuItem NavigateUrl="~/CidadesPendencia.aspx" Text="Pendências" 
-                                Value="Pendëncias"></asp:MenuItem>
-                        </Items>
-                    </asp:Menu>                
-
             </div>
-        </div>
-        <div class="main">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
-        </div>
-    </div>
+        </nav>
+        <asp:ContentPlaceHolder ID="MainContent" runat="server" />
     </form>
 </body>
 </html>

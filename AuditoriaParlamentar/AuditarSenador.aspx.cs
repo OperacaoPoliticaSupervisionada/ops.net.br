@@ -30,6 +30,19 @@ namespace AuditoriaParlamentar
             {
                 CarregaDados();
             }
+
+            GridView.PreRender += GridView_PreRender;
+        }
+
+        protected void GridView_PreRender(object sender, EventArgs e)
+        {
+            try
+            {
+                GridView.HeaderRow.TableSection = TableRowSection.TableHeader;
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         private void CarregaDados()
@@ -90,7 +103,7 @@ namespace AuditoriaParlamentar
                     e.Row.Cells[7].Text = Convert.ToDouble(valor).ToString("N2");
                 else
                     e.Row.Cells[7].Text = "0,00";
-                
+
                 CheckBox chkRow = (e.Row.Cells[0].FindControl("CheckBoxSelecionar") as CheckBox);
                 chkRow.Checked = false;
 

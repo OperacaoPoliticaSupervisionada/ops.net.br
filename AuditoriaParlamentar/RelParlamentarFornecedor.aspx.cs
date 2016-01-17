@@ -20,8 +20,6 @@ namespace AuditoriaParlamentar
 
             if (!IsPostBack)
             {
-                GridViewDenuncias.EmptyDataText = "Não existem dados a serem exibidos.";
-
                 AcompanhaDenuncias acompanha = new AcompanhaDenuncias();
                 acompanha.DenunciasParlamentarFornecedor(GridViewDenuncias);
 
@@ -29,11 +27,23 @@ namespace AuditoriaParlamentar
                 Session["AcompanhaSortDirection0"] = "ASC";
                 Session["AcompanhaSortExpression0"] = "Parlamentar";
             }
+            GridViewDenuncias.PreRender += GGridViewDenuncias_PreRender;
+        }
+
+        private void GGridViewDenuncias_PreRender(object sender, EventArgs e)
+        {
+            try
+            {
+                GridViewDenuncias.HeaderRow.TableSection = TableRowSection.TableHeader;
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         protected void GridViewDenuncias_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            e.Row.Cells[e.Row.Cells.Count - 1].HorizontalAlign = HorizontalAlign.Right;
+            //e.Row.Cells[e.Row.Cells.Count - 1].HorizontalAlign = HorizontalAlign.Right;
 
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
@@ -42,7 +52,7 @@ namespace AuditoriaParlamentar
                 if (Double.TryParse(e.Row.Cells[e.Row.Cells.Count - 1].Text, out valor))
                 {
                     e.Row.Cells[e.Row.Cells.Count - 1].Text = Convert.ToDouble(valor).ToString("N2");
-                    
+
                     mTotalGeral += valor;
                 }
                 else

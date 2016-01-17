@@ -455,7 +455,7 @@ namespace AuditoriaParlamentar.Classes
             AtualizaFornecedorUltimaNotaFiscal(banco);
         }
 
-        internal void CarregaValores(System.Web.Caching.Cache cache, DropDownList listParlamentar, DropDownList listDespesas, DropDownList listPartidos)
+        internal void CarregaValores(System.Web.Caching.Cache cache, ListBox listParlamentar, ListBox listDespesas, ListBox listPartidos)
         {
             MenorAno = DateTime.Today.Year;
 

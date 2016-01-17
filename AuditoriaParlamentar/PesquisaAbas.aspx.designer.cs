@@ -13,12 +13,21 @@ namespace AuditoriaParlamentar {
     public partial class PesquisaAbas {
         
         /// <summary>
-        /// DropDownListAgrupamento control.
+        /// form_auditoria control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownListAgrupamento;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form_auditoria;
+        
+        /// <summary>
+        /// rptAgrupamento control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptAgrupamento;
     }
 }

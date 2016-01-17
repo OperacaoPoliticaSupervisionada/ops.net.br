@@ -17,10 +17,10 @@ namespace AuditoriaParlamentar
         {
             if (!IsPostBack)
             {
-                LabelCNPJ.Text = HttpUtility.HtmlDecode(Request.QueryString["Cnpj"]);
-                LabelRazaoSocial.Text = HttpUtility.HtmlDecode(Request.QueryString["Nome"]);
+                lblCNPJ.InnerText = HttpUtility.HtmlDecode(Request.QueryString["Cnpj"]);
+                lblrazaoSocial.InnerText = HttpUtility.HtmlDecode(Request.QueryString["Nome"]);
 
-                String cnpjCpf = LabelCNPJ.Text;
+                String cnpjCpf = lblCNPJ.InnerText;
 
                 if (cnpjCpf.Length == 14)
                     cnpjCpf = cnpjCpf.Substring(0, 8);
@@ -32,7 +32,7 @@ namespace AuditoriaParlamentar
 
         protected void GridViewResultado_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            e.Row.Cells[e.Row.Cells.Count - 1].HorizontalAlign = HorizontalAlign.Right;
+            //e.Row.Cells[e.Row.Cells.Count - 1].HorizontalAlign = HorizontalAlign.Right;
 
             if (e.Row.RowType == DataControlRowType.DataRow)
             {

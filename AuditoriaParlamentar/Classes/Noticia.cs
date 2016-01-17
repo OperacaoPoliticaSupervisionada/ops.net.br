@@ -99,7 +99,7 @@ namespace AuditoriaParlamentar.Classes
             }
         }
 
-        internal void CarregaNoticias(GridView grid)
+        internal void CarregaNoticias(Repeater repeater)
         {
             StringBuilder sql = new StringBuilder();
 
@@ -118,16 +118,16 @@ namespace AuditoriaParlamentar.Classes
                     DataTable table = new DataTable("noticias");
                     table.Load(reader);
 
-                    table.Columns[3].ColumnName = "Data de Inclusão";
-                    table.Columns[4].ColumnName = "Incluído Por";
+                    //table.Columns[3].ColumnName = "Data de Inclusão";
+                    //table.Columns[4].ColumnName = "Incluído Por";
 
-                    grid.DataSource = table;
-                    grid.DataBind();
+                    repeater.DataSource = table;
+                    repeater.DataBind();
                 }
             }
         }
 
-        internal void UltimasNoticias(System.Web.Caching.Cache cache, GridView grid)
+        internal void UltimasNoticias(System.Web.Caching.Cache cache, Repeater repeater)
         {
             if (cache["tableNoticias"] == null)
             {
@@ -138,7 +138,7 @@ namespace AuditoriaParlamentar.Classes
                 sql.Append("       noticias.TextoNoticia,");
                 sql.Append("       noticias.DataNoticia");
                 sql.Append("  FROM noticias");
-                sql.Append(" ORDER BY IdNoticia DESC LIMIT 5");
+                sql.Append(" ORDER BY IdNoticia DESC LIMIT 8");
 
                 using (Banco banco = new Banco())
                 {
@@ -147,8 +147,8 @@ namespace AuditoriaParlamentar.Classes
                         DataTable table = new DataTable("noticias");
                         table.Load(reader);
 
-                        grid.DataSource = table;
-                        grid.DataBind();
+                        repeater.DataSource = table;
+                        repeater.DataBind();
 
                         try
                         {
@@ -163,8 +163,8 @@ namespace AuditoriaParlamentar.Classes
             else
             {
                 DataTable table = (DataTable)cache["tableNoticias"];
-                grid.DataSource = table;
-                grid.DataBind();
+                repeater.DataSource = table;
+                repeater.DataBind();
             }
         }
     }

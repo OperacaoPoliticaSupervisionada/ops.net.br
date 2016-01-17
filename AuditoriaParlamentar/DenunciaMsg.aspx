@@ -5,276 +5,159 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <link rel="stylesheet" href="Styles/themes/start/jquery.ui.all.css"/>
-    <link rel="stylesheet" href="Styles/Site.css"/>
-    <style type="text/css">
-        .Grid
-        {
-            font-size: small;
-            font-family: Verdana;
-        }
-
-    </style>
-    <script src="Scripts/jquery-1.10.2.min.js"></script>
-    <%--<script type="text/javascript" src="Scripts/MaxLength.min.js"></script>--%><%--<script type="text/javascript">
-        $(function () {
-            //Specifying the Character Count control explicitly
-            $("[id*=TextBoxComentario]").MaxLength(
-            {
-                MaxLength: 255,
-                CharacterCountControl: $('#counter')
-            });
-        });
-    </script>--%>
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/assets/css/style.css" rel="stylesheet" />
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/") %>assets/js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/") %>assets/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <form id="form1" runat="server">
-    <div>
-    
-    <table class="table100">
-        <tr>
-            <td>
-                <asp:Button ID="ButtonVoltar" runat="server" Text="Voltar" 
-                    CssClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                    Font-Size="Small" onclick="ButtonVoltar_Click" />
-                <asp:Button ID="ButtonListarDocumentos" runat="server" Text="Solicitar/Listar Documentos" 
-                    CssClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                    Font-Size="Small" onclick="ButtonVoltar_Click" />
-                <asp:Button ID="ButtonFotoIncluir" runat="server" Text="Incluir Pendência" 
-                    CssClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                    Font-Size="Small" onclick="ButtonFotoIncluir_Click" />
-                <asp:Button ID="ButtonFotoExcluir" runat="server" Text="Excluir Pendência" 
-                    CssClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                    Font-Size="Small" onclick="ButtonFotoExcluir_Click" />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <asp:ValidationSummary ID="DenunciaValidationSummary" runat="server" CssClass="failureNotification"
-                    ValidationGroup="DenunciaGroup" />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <table>
-                    <tr>
-                        <td width="100px">
-                            <asp:Label ID="Label8" runat="server" Text="Denúncia:" CssClass="fonte0"></asp:Label>
-                        </td>
-                        <td>
-                            <asp:Label ID="LabelId" runat="server" Text="Label" Font-Bold="True" 
-                                CssClass="fonte1"></asp:Label>
-                        </td>
-                        <td width="100px">
-                            <asp:Label ID="Label9" runat="server" Text="Usuário:" CssClass="fonte0"></asp:Label>
-                        </td>
-                        <td>
-                            <asp:Label ID="LabelUsuario" runat="server" Text="Label" CssClass="fonte1"></asp:Label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="100px">
-                            <asp:Label ID="Label1" runat="server" Text="CNPJ/CPF:" CssClass="fonte0"></asp:Label>
-                        </td>
-                        <td>
-                            <asp:Label ID="LabelCNPJ" runat="server" Text="Label" Font-Bold="True" CssClass="fonte1"></asp:Label>
-                        </td>
-                        <td>
-                            <asp:Label ID="Label3" runat="server" Text="Razão Social:" CssClass="fonte0"></asp:Label>
-                        </td>
-                        <td>
-                            <asp:HyperLink ID="HyperLinkRazaoSocial" runat="server" CssClass="fonte1">HyperLink</asp:HyperLink>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <asp:Label ID="Label5" runat="server" Text="Data:" CssClass="fonte0"></asp:Label>
-                        </td>
-                        <td>
-                            <asp:Label ID="LabelData" runat="server" Text="Label" CssClass="fonte1"></asp:Label>
-                        </td>
-                        <td>
-                            <asp:Label ID="Label6" runat="server" Text="Situação:" CssClass="fonte0"></asp:Label>
-                        </td>
-                        <td>
-                            <asp:Label ID="LabelSituacao" runat="server" Text="Label" CssClass="fonte1"></asp:Label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td valign="top">
-                            <asp:Label ID="Label4" runat="server" Text="Denúncia:" CssClass="fonte0"></asp:Label>
-                        </td>
-                        <td colspan="3">
-                            <asp:Label ID="LabelTexto" runat="server" Text="Label" CssClass="fonte1"></asp:Label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td valign="top">
-                            <asp:Label ID="Label7" runat="server" Text="Anexos:" CssClass="fonte0"></asp:Label>
-                        </td>
-                        <td colspan="3">
-                <asp:GridView ID="GridViewAnexo" runat="server"
-                    GridLines="None" style="text-align: left" CssClass="Grid" AutoGenerateColumns="False" 
-                                onrowcommand="GridViewAnexo_RowCommand" ShowHeader="False">
-                    <Columns>
-                        <asp:BoundField DataField="Arquivo" ReadOnly="True" SortExpression="Arquivo">
-                        <ItemStyle Font-Bold="True" />
-                        </asp:BoundField>
-                        <asp:CommandField ButtonType="Image" SelectImageUrl="~/Figuras/disk.png" 
-                            ShowSelectButton="True" />
-                    </Columns>
-                    <HeaderStyle 
-                        HorizontalAlign="Left" />
-                </asp:GridView>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <table>
-                    <tr>
-                        <td valign="top">
-                            &nbsp;</td>
-                        <td>
-                <asp:GridView ID="GridViewComentarios" runat="server" CellPadding="4" ForeColor="#333333"
-                    GridLines="None" style="text-align: left" CssClass="Grid" 
-                                onrowdatabound="GridViewComentarios_RowDataBound" Width="800px">
-                    <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
-                    <EditRowStyle BackColor="#999999" />
-                    <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                    <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" 
-                        HorizontalAlign="Left" />
-                    <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
-                    <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
-                    <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-                    <SortedAscendingCellStyle BackColor="#E9E7E2" />
-                    <SortedAscendingHeaderStyle BackColor="#506C8C" />
-                    <SortedDescendingCellStyle BackColor="#FFFDF8" />
-                    <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
-                </asp:GridView>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td valign="top">
-                            &nbsp;</td>
-                        <td>
-                            &nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td valign="top">
-                            &nbsp;</td>
-                        <td>
-                            <asp:DropDownList ID="DropDownListSituacao" runat="server" CssClass="fonte1" 
-                                onselectedindexchanged="DropDownListSituacao_SelectedIndexChanged">
-                            </asp:DropDownList>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td valign="top">
-                            <asp:RequiredFieldValidator ID="DenunciaValidator" runat="server" 
-                                ControlToValidate="TextBoxComentario" CssClass="failureNotification" 
-                                ErrorMessage="Comentário não informado." SetFocusOnError="True" 
-                                ValidationGroup="DenunciaGroup">*</asp:RequiredFieldValidator>
-                            </td>
-                        <td>
-                <asp:TextBox ID="TextBoxComentario" runat="server" Rows="5" TextMode="MultiLine"
-                    Width="600px"></asp:TextBox>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td valign="top">
-                            <asp:CustomValidator ID="AnexoValidator" runat="server" 
-                                CssClass="failureNotification" 
-                                ErrorMessage="O anexo deverá estar compactado no formato .zip" 
-                                ValidationGroup="DenunciaGroup">*</asp:CustomValidator>
-                            </td>
-                        <td>
-                            <asp:FileUpload ID="FileUpload" runat="server" 
-                                CssClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            &nbsp;</td>
-                        <td>
-                <asp:Button ID="ButtonEnviar" runat="server" OnClick="ButtonEnviar_Click" Text="Enviar Comentário"
-                    ValidationGroup="DenunciaGroup" 
-                                CssClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" 
-                                Font-Size="Small" />
-                        </td>
-                        <%--<td>
-                                <div id="counter" style="font-size: small; color: #0000FF;"/>
-                            </td>--%>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                &nbsp;</td>
-        </tr>
-        <tr>
-            <td>
-                <asp:Label ID="LabelOutrasDenuncias0" runat="server" CssClass="fonte0" 
-                    Text="Abaixo são listados os deputados que utilizaram este fornecedor."></asp:Label>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                        <asp:GridView ID="GridViewDeputados" runat="server" CellPadding="4" ForeColor="#333333"
-                            GridLines="None" Style="text-align: left" CssClass="Grid" OnRowDataBound="GridViewDeputados_RowDataBound"
-                            ShowFooter="True">
-                            <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+    <div class="container-fluid">
+        <form id="form1" runat="server">
+            <div class="row">
+                <div class="col-md-12">
+                    <asp:Button ID="ButtonVoltar" runat="server" Text="Voltar" CssClass="btn btn-default btn-sm" OnClick="ButtonVoltar_Click" />
+                    <asp:Button ID="ButtonListarDocumentos" runat="server" Text="Solicitar/Listar Documentos" CssClass="btn btn-success btn-sm" OnClick="ButtonVoltar_Click" />
+                    <asp:Button ID="ButtonFotoIncluir" runat="server" Text="Incluir Pendência" CssClass="btn btn-primary btn-sm" OnClick="ButtonFotoIncluir_Click" />
+                    <asp:Button ID="ButtonFotoExcluir" runat="server" Text="Excluir Pendência" CssClass="btn btn-primary btn-sm" OnClick="ButtonFotoExcluir_Click" />
+                </div>
+            </div>
+            <div class="row">
+                <br />
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Código:</label>
+                        <asp:Label ID="LabelId" runat="server" class="control-label show"></asp:Label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Usuário:</label>
+                        <asp:Label ID="LabelUsuario" runat="server" class="control-label show"></asp:Label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Data:</label>
+                        <asp:Label ID="LabelData" runat="server" class="control-label show"></asp:Label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">CNPJ/CPF:</label>
+                        <asp:Label ID="LabelCNPJ" runat="server" class="control-label show"></asp:Label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Razão Social:</label>
+                        <asp:HyperLink ID="HyperLinkRazaoSocial" runat="server" CssClass="control-label show">HyperLink</asp:HyperLink>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Situação:</label>
+                        <asp:Label ID="LabelSituacao" runat="server" class="control-label show"></asp:Label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label">Denúncia:</label>
+                        <asp:Label ID="LabelTexto" runat="server" class="control-label show"></asp:Label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label">Anexos:</label>
+                        <asp:GridView ID="GridViewAnexo" runat="server" AllowSorting="false"
+                            UseAccessibleHeader="true" OnRowCommand="GridViewAnexo_RowCommand"
+                            CssClass="table table-hover table-striped" GridLines="None"
+                            EmptyDataText="Nenhum Anexo Adicionado!" EmptyDataRowStyle-HorizontalAlign="Center">
                             <Columns>
-                                <asp:HyperLinkField DataNavigateUrlFields="url" Target="_blank" Text="Site" />
+                                <asp:BoundField DataField="Arquivo" ReadOnly="True" SortExpression="Arquivo">
+                                    <ItemStyle Font-Bold="True" />
+                                </asp:BoundField>
+                                <asp:CommandField ButtonType="Image" SelectImageUrl="~/assets/img/disk.png"
+                                    ShowSelectButton="True" />
                             </Columns>
-                            <EditRowStyle BackColor="#999999" />
-                            <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                            <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                            <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
-                            <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
-                            <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-                            <SortedAscendingCellStyle BackColor="#E9E7E2" />
-                            <SortedAscendingHeaderStyle BackColor="#506C8C" />
-                            <SortedDescendingCellStyle BackColor="#FFFDF8" />
-                            <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
+                            <RowStyle CssClass="cursor-pointer" />
                         </asp:GridView>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                &nbsp;&nbsp;</td>
-        </tr>
-        <tr>
-            <td>
-                <asp:Label ID="LabelOutrasDenuncias" runat="server" CssClass="fonte0" 
-                    Text="Abaixo são listadas outras denúncias feitas para este mesmo fornecedor."></asp:Label>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <asp:GridView ID="GridViewDenuncias" runat="server" CellPadding="4" ForeColor="#333333"
-                    GridLines="None" style="text-align: left" CssClass="Grid">
-                    <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
-                    <EditRowStyle BackColor="#999999" />
-                    <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                    <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" 
-                        HorizontalAlign="Left" />
-                    <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
-                    <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
-                    <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-                    <SortedAscendingCellStyle BackColor="#E9E7E2" />
-                    <SortedAscendingHeaderStyle BackColor="#506C8C" />
-                    <SortedDescendingCellStyle BackColor="#FFFDF8" />
-                    <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
-                </asp:GridView>
-                        </td>
-        </tr>
-    </table>
-    
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <asp:GridView ID="GridViewComentarios" runat="server" AllowSorting="false"
+                        UseAccessibleHeader="true" OnRowDataBound="GridViewComentarios_RowDataBound"
+                        CssClass="table table-hover table-striped" GridLines="None"
+                        EmptyDataText="Nenhum denúncia encontrada para os filtros informados!" EmptyDataRowStyle-HorizontalAlign="Center">
+                        <RowStyle CssClass="cursor-pointer" />
+                    </asp:GridView>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <asp:DropDownList ID="DropDownListSituacao" runat="server" CssClass="form-control input-sm"
+                        OnSelectedIndexChanged="DropDownListSituacao_SelectedIndexChanged">
+                    </asp:DropDownList>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <asp:RequiredFieldValidator ID="DenunciaValidator" runat="server" ControlToValidate="TextBoxComentario"
+                        CssClass="failureNotification" SetFocusOnError="True"
+                        ValidationGroup="DenunciaGroup">Comentário não informado.</asp:RequiredFieldValidator>
+                    <asp:TextBox ID="TextBoxComentario" runat="server" Rows="5" TextMode="MultiLine" CssClass="form-control input-sm"></asp:TextBox>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <asp:CustomValidator ID="AnexoValidator" runat="server" CssClass="failureNotification"
+                        ValidationGroup="DenunciaGroup">O anexo deverá estar compactado no formato .zip</asp:CustomValidator>
+
+                    <asp:FileUpload ID="FileUpload" runat="server" CssClass="form-control input-sm" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <br />
+                    <asp:Button ID="ButtonEnviar" runat="server" OnClick="ButtonEnviar_Click" Text="Enviar Comentário"
+                        ValidationGroup="DenunciaGroup" CssClass="btn btn-success" />
+                </div>
+            </div>
+            <div class="row" runat="server" id="dvOutrasDenuncias">
+                <hr />
+                <div class="col-md-12">
+                    <p>Abaixo são listadas outras denúncias feitas para este mesmo fornecedor.</p>
+                    <asp:GridView ID="GridViewDenuncias" runat="server" AllowSorting="false"
+                        UseAccessibleHeader="true" CssClass="table table-hover table-striped" GridLines="None"
+                        EmptyDataText="Este fornecedor ainda não possui denuncias!" EmptyDataRowStyle-HorizontalAlign="Center">
+                        <RowStyle CssClass="cursor-pointer" />
+                    </asp:GridView>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <p>Abaixo são listados os deputados que utilizaram este fornecedor.</p>
+                    <asp:GridView ID="GridViewDeputados" runat="server" AllowSorting="false"
+                        UseAccessibleHeader="true" OnRowDataBound="GridViewDeputados_RowDataBound"
+                        CssClass="table table-hover table-striped" GridLines="None" ShowFooter="True"
+                        EmptyDataText="Nenhum deputado relacionado!" EmptyDataRowStyle-HorizontalAlign="Center">
+                        <Columns>
+                            <asp:HyperLinkField DataNavigateUrlFields="url" Target="_blank" Text="Site" />
+                        </Columns>
+                        <RowStyle CssClass="cursor-pointer" />
+                    </asp:GridView>
+                </div>
+            </div>
+        </form>
     </div>
-    </form>
 </body>
 </html>

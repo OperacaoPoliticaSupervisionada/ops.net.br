@@ -5,69 +5,39 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <link rel="stylesheet" href="Styles/themes/start/jquery.ui.all.css">
-    <link rel="stylesheet" href="Styles/Site.css">
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/assets/css/style.css" rel="stylesheet" />
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/") %>assets/js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/") %>assets/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <form id="form1" runat="server">
-    <table class="table100">
-        <tr>
-            <td>
-                &nbsp;
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <table>
-                    <tr>
-                        <td width="100px">
-                            <asp:Label ID="Label9" runat="server" Text="CNPJ/CPF:" CssClass="fonte0"></asp:Label>
-                        </td>
-                        <td>
-                            <asp:Label ID="LabelCNPJ" runat="server" Text="Label" Font-Bold="True" CssClass="fonte1"></asp:Label>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <asp:Label ID="Label3" runat="server" Text="Razão Social:" CssClass="fonte0"></asp:Label>
-                        </td>
-                        <td>
-                            <asp:Label ID="LabelNome" runat="server" Text="Label" Font-Bold="True" CssClass="fonte1"></asp:Label>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                &nbsp;
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <center>
-                    <asp:GridView ID="GridViewResultado" runat="server" CellPadding="4" ForeColor="#333333"
-                        GridLines="None" Style="text-align: left" CssClass="Grid" OnRowDataBound="GridViewResultado_RowDataBound"
-                        ShowFooter="True" AllowSorting="True" OnSorting="GridViewResultado_Sorting">
-                        <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+    <div class="container-fluid">
+        <form id="form2" runat="server">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">CNPJ/CPF:</label>
+                        <span runat="server" id="lblCNPJ" class="control-label show"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">Razão Social:</label>
+                        <span runat="server" id="lblrazaoSocial" class="control-label show"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <asp:GridView ID="GridViewResultado" runat="server" AllowSorting="True" UseAccessibleHeader="true" OnRowDataBound="GridViewResultado_RowDataBound"
+                        CssClass="table table-hover table-striped" GridLines="None" ShowFooter="True" OnSorting="GridViewResultado_Sorting">
                         <Columns>
-                            <asp:HyperLinkField DataNavigateUrlFields="url" Target="_blank" Text="Site" />
                         </Columns>
-                        <EditRowStyle BackColor="#999999" />
-                        <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                        <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" HorizontalAlign="Left" />
-                        <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
-                        <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
-                        <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-                        <SortedAscendingCellStyle BackColor="#E9E7E2" />
-                        <SortedAscendingHeaderStyle BackColor="#506C8C" />
-                        <SortedDescendingCellStyle BackColor="#FFFDF8" />
-                        <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
+                        <RowStyle CssClass="cursor-pointer" />
                     </asp:GridView>
-                </center>
-            </td>
-        </tr>
-    </table>
-    </form>
+                </div>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

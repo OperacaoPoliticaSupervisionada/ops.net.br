@@ -4,12 +4,13 @@
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
-    <div style="margin: 10px">
-        <h2>
-            Alterar Conta
-        </h2>
-        <p>
-            Sua conta foi alterada com sucesso.
-        </p>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <h2>Alterar Conta
+            </h2>
+            <p>
+                Sua conta foi alterada com sucesso.
+            </p>
+        </div>
     </div>
 </asp:Content>

@@ -58,24 +58,6 @@ namespace AuditoriaParlamentar {
         protected global::System.Web.UI.WebControls.Button ButtonFotoExcluir;
         
         /// <summary>
-        /// DenunciaValidationSummary control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ValidationSummary DenunciaValidationSummary;
-        
-        /// <summary>
-        /// Label8 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label8;
-        
-        /// <summary>
         /// LabelId control.
         /// </summary>
         /// <remarks>
@@ -83,15 +65,6 @@ namespace AuditoriaParlamentar {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelId;
-        
-        /// <summary>
-        /// Label9 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label9;
         
         /// <summary>
         /// LabelUsuario control.
@@ -103,13 +76,13 @@ namespace AuditoriaParlamentar {
         protected global::System.Web.UI.WebControls.Label LabelUsuario;
         
         /// <summary>
-        /// Label1 control.
+        /// LabelData control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label LabelData;
         
         /// <summary>
         /// LabelCNPJ control.
@@ -121,15 +94,6 @@ namespace AuditoriaParlamentar {
         protected global::System.Web.UI.WebControls.Label LabelCNPJ;
         
         /// <summary>
-        /// Label3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
-        
-        /// <summary>
         /// HyperLinkRazaoSocial control.
         /// </summary>
         /// <remarks>
@@ -137,33 +101,6 @@ namespace AuditoriaParlamentar {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink HyperLinkRazaoSocial;
-        
-        /// <summary>
-        /// Label5 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label5;
-        
-        /// <summary>
-        /// LabelData control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelData;
-        
-        /// <summary>
-        /// Label6 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label6;
         
         /// <summary>
         /// LabelSituacao control.
@@ -175,15 +112,6 @@ namespace AuditoriaParlamentar {
         protected global::System.Web.UI.WebControls.Label LabelSituacao;
         
         /// <summary>
-        /// Label4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label4;
-        
-        /// <summary>
         /// LabelTexto control.
         /// </summary>
         /// <remarks>
@@ -191,15 +119,6 @@ namespace AuditoriaParlamentar {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelTexto;
-        
-        /// <summary>
-        /// Label7 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label7;
         
         /// <summary>
         /// GridViewAnexo control.
@@ -274,31 +193,13 @@ namespace AuditoriaParlamentar {
         protected global::System.Web.UI.WebControls.Button ButtonEnviar;
         
         /// <summary>
-        /// LabelOutrasDenuncias0 control.
+        /// dvOutrasDenuncias control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelOutrasDenuncias0;
-        
-        /// <summary>
-        /// GridViewDeputados control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewDeputados;
-        
-        /// <summary>
-        /// LabelOutrasDenuncias control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelOutrasDenuncias;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvOutrasDenuncias;
         
         /// <summary>
         /// GridViewDenuncias control.
@@ -308,5 +209,14 @@ namespace AuditoriaParlamentar {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView GridViewDenuncias;
+        
+        /// <summary>
+        /// GridViewDeputados control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridViewDeputados;
     }
 }

@@ -35,8 +35,8 @@ namespace AuditoriaParlamentar
                         DropDownListParlamentar.SelectedValue = parlamentarSendoPesquisado.ToString();
                 }
                 
-                LabelCNPJ.Text = cnpj;
-                LabelNome.Text = nome;
+                lblCNPJ.InnerText = cnpj;
+                lblrazaoSocial.InnerText = nome;
 
                 CarregaNotas();
             }
@@ -55,7 +55,7 @@ namespace AuditoriaParlamentar
                 HyperLinkCamara.NavigateUrl = "http://www.camara.gov.br/cota-parlamentar/consulta-cota-parlamentar?ideDeputado=" + DropDownListParlamentar.SelectedValue;
 
                 Pesquisa pesquisa = new Pesquisa();
-                pesquisa.DocumentosFornecedor(GridViewResultado, LabelCNPJ.Text, DropDownListParlamentar.SelectedValue);
+                pesquisa.DocumentosFornecedor(GridViewResultado, lblCNPJ.InnerText, DropDownListParlamentar.SelectedValue);
 
                 if (GridViewResultado.Rows.Count > 0)
                 {
@@ -67,7 +67,7 @@ namespace AuditoriaParlamentar
             else
             {
                 PesquisaSenadores pesquisaSenadores = new PesquisaSenadores();
-                pesquisaSenadores.DocumentosFornecedor(GridViewResultado, LabelCNPJ.Text, DropDownListParlamentar.SelectedValue);
+                pesquisaSenadores.DocumentosFornecedor(GridViewResultado, lblCNPJ.InnerText, DropDownListParlamentar.SelectedValue);
 
                 if (GridViewResultado.Rows.Count > 0)
                 {
@@ -80,7 +80,7 @@ namespace AuditoriaParlamentar
 
         protected void GridViewResultado_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            e.Row.Cells[4].HorizontalAlign = HorizontalAlign.Right;
+            //e.Row.Cells[4].HorizontalAlign = HorizontalAlign.Right;
             e.Row.Cells[5].Visible = false;
             e.Row.Cells[6].Visible = false;
             e.Row.Cells[7].Visible = false;
@@ -121,7 +121,7 @@ namespace AuditoriaParlamentar
             else if (e.Row.RowType == DataControlRowType.Footer)
             {
                 e.Row.Cells[4].Text = mTotalGeralDep.ToString("N2");
-                e.Row.Cells[4].HorizontalAlign = HorizontalAlign.Right;
+                //e.Row.Cells[4].HorizontalAlign = HorizontalAlign.Right;
             }
         }
 
@@ -163,7 +163,7 @@ namespace AuditoriaParlamentar
                     {
                         texto.AppendLine("");
                         texto.AppendLine("Parlamentar: " + row.Cells[1].Text);
-                        texto.AppendLine("Fornecedor : " + LabelCNPJ.Text + " - " + LabelNome.Text);
+                        texto.AppendLine("Fornecedor : " + lblCNPJ.InnerText + " - " + lblrazaoSocial.InnerText);
                         texto.AppendLine("NF/Recibo  : " + row.Cells[2].Text);
                         texto.AppendLine("Dt. Emissão: " + row.Cells[3].Text);
                         texto.AppendLine("Valor      : " + row.Cells[4].Text);

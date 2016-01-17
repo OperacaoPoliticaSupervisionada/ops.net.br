@@ -12,15 +12,26 @@ namespace AuditoriaParlamentar
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            GridViewDenuncias.PreRender += GridViewDenuncias_PreRender;
+
             if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
                 Response.Redirect("~/Account/Login.aspx");
 
             if (!IsPostBack)
             {
-                GridViewDenuncias.EmptyDataText = "Você não fez nenhuma denúncia.";
-
                 Denuncia denuncia = new Denuncia();
                 denuncia.DenunciasUsuario(GridViewDenuncias, HttpContext.Current.User.Identity.Name);
+            }
+        }
+
+        private void GridViewDenuncias_PreRender(object sender, EventArgs e)
+        {
+            try
+            {
+                GridViewDenuncias.HeaderRow.TableSection = TableRowSection.TableHeader;
+            }
+            catch (Exception ex)
+            {
             }
         }
 

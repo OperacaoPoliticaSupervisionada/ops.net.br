@@ -18,13 +18,11 @@ namespace AuditoriaParlamentar
 
             if (!IsPostBack)
             {
-                LabelCNPJ.Text = HttpUtility.HtmlDecode(Request.QueryString["Cnpj"]);
-                LabelRazaoSocial.Text = HttpUtility.HtmlDecode(Request.QueryString["Nome"]);
-                ButtonCancelar.OnClientClick = "window.parent.closeTab();return false;";
+                lblCNPJ.InnerText = HttpUtility.HtmlDecode(Request.QueryString["Cnpj"]);
+                lblRazaoSocial.InnerText = HttpUtility.HtmlDecode(Request.QueryString["Nome"]);
 
                 Denuncia denuncia = new Denuncia();
-
-                if (denuncia.Existe(LabelCNPJ.Text, HttpContext.Current.User.Identity.Name) == true)
+                if (denuncia.Existe(lblCNPJ.InnerText, HttpContext.Current.User.Identity.Name) == true)
                 {
                     Response.Redirect(String.Format("~/DenunciaMsg.aspx?Retorno=close&IdDenuncia={0}", denuncia.IdDenuncia.ToString()));
                 }
@@ -56,8 +54,8 @@ namespace AuditoriaParlamentar
                 Response.Redirect("~/Oops.aspx");
 
             Denuncia denuncia = new Denuncia();
-            denuncia.Cnpj = LabelCNPJ.Text;
-            denuncia.RazaoSocial = LabelRazaoSocial.Text;
+            denuncia.Cnpj = lblCNPJ.InnerText;
+            denuncia.RazaoSocial = lblRazaoSocial.InnerText;
             denuncia.UsuarioDenuncia = HttpContext.Current.User.Identity.Name;
             denuncia.Texto = TextBoxDenuncia.Text;
 

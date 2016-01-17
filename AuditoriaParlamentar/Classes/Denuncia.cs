@@ -298,7 +298,7 @@ namespace AuditoriaParlamentar.Classes
         {
             StringBuilder sql = new StringBuilder();
 
-            sql.Append("   SELECT denuncias.DataDenuncia,");
+            sql.Append("   SELECT denuncias.idDenuncia, denuncias.DataDenuncia,");
             sql.Append(StringStatus());
             sql.Append("     FROM denuncias");
             sql.Append("    WHERE denuncias.txtCNPJCPF =  @txtCNPJCPF");
@@ -313,8 +313,9 @@ namespace AuditoriaParlamentar.Classes
                     DataTable table = new DataTable("denuncias");
                     table.Load(reader);
 
-                    table.Columns[0].ColumnName = "Data da denúncia";
-                    table.Columns[1].ColumnName = "Situação";
+                    table.Columns[0].ColumnName = "Codigo";
+                    table.Columns[1].ColumnName = "Data da denúncia";
+                    table.Columns[2].ColumnName = "Situação";
 
                     grid.DataSource = table;
                     grid.DataBind();

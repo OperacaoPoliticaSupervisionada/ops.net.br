@@ -90,8 +90,7 @@ namespace AuditoriaParlamentar
                 else
                 {
                     DropDownListSituacao.Visible = false;
-                    GridViewDenuncias.Visible = false;
-                    LabelOutrasDenuncias.Visible = false;
+                    dvOutrasDenuncias.Visible = false;
                     ButtonFotoExcluir.Visible = false;
                     ButtonFotoIncluir.Visible = false;
                 }
@@ -175,12 +174,12 @@ namespace AuditoriaParlamentar
         protected void GridViewComentarios_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             e.Row.Cells[0].Wrap = false;
-            e.Row.Cells[1].Wrap = false;
+            //e.Row.Cells[1].Wrap = false;
 
             if (e.Row.RowType == DataControlRowType.Header)
             {
                 e.Row.Cells[0].Width = 100;
-                e.Row.Cells[1].Width = 100;
+                //e.Row.Cells[1].Width = 100;
             }
         }
 
@@ -209,7 +208,7 @@ namespace AuditoriaParlamentar
         protected void GridViewDeputados_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             e.Row.Cells[5].Visible = false;
-            e.Row.Cells[6].HorizontalAlign = HorizontalAlign.Right;
+            //e.Row.Cells[6].HorizontalAlign = HorizontalAlign.Right;
 
             if (e.Row.RowType == DataControlRowType.DataRow)
             {

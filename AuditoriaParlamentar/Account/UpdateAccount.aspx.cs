@@ -70,7 +70,7 @@ namespace AuditoriaParlamentar.Account
             Usuario usuario = new Usuario();
 
             if (usuario.AtualizaDadosComplementares(userName, DropDownListUF.SelectedValue, TextBoxCidade.Text, CheckBoxMostraEmail.Checked) == true)
-                Response.Redirect("/Account/UpdateAccountSuccess.aspx");
+                Response.Redirect("~/Account/UpdateAccountSuccess.aspx");
         }
     }
 }

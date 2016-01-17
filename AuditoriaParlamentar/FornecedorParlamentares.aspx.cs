@@ -23,8 +23,8 @@ namespace AuditoriaParlamentar
                 String cnpj = HttpUtility.HtmlDecode(Request.QueryString["Cnpj"]);
                 String nome = HttpUtility.HtmlDecode(Request.QueryString["Nome"]);
 
-                LabelCNPJ.Text = cnpj;
-                LabelNome.Text = nome;
+                lblCNPJ.InnerText = cnpj;
+                lblrazaoSocial.InnerText = nome;
 
                 AcompanhaDenuncias dados = new AcompanhaDenuncias();
                 dados.FornecedorParlamentares(GridViewResultado, cnpj);
@@ -34,8 +34,19 @@ namespace AuditoriaParlamentar
                 Session["FornecedorParlamentaresDirection"] = "ASC";
 
             }
+            GridViewResultado.PreRender += GridViewResultado_PreRender;
         }
 
+        private void GridViewResultado_PreRender(object sender, EventArgs e)
+        {
+            try
+            {
+                GridViewResultado.HeaderRow.TableSection = TableRowSection.TableHeader;
+            }
+            catch (Exception ex)
+            {
+            }
+        }
         protected void GridViewResultado_Sorting(object sender, GridViewSortEventArgs e)
         {
             //Retrieve the table from the session object.
@@ -81,23 +92,24 @@ namespace AuditoriaParlamentar
 
         protected void GridViewResultado_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            e.Row.Cells[5].Visible = false;
-            e.Row.Cells[6].HorizontalAlign = HorizontalAlign.Right;
+            //e.Row.Cells[5].Visible = false;
+            //e.Row.Cells[6].HorizontalAlign = HorizontalAlign.Right;
 
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
+                e.Row.Cells[4].Text = string.Format("<a href=\"{0}\" target=\"_blank\" rel=\"nofollow\">Site</a>", e.Row.Cells[4].Text);
                 Double valor;
 
-                if (Double.TryParse(e.Row.Cells[6].Text, out valor))
-                    e.Row.Cells[6].Text = Convert.ToDouble(valor).ToString("N2");
+                if (Double.TryParse(e.Row.Cells[5].Text, out valor))
+                    e.Row.Cells[5].Text = Convert.ToDouble(valor).ToString("N2");
                 else
-                    e.Row.Cells[6].Text = "0,00";
+                    e.Row.Cells[5].Text = "0,00";
 
-                mTotalGeral += Convert.ToDouble(e.Row.Cells[6].Text);
+                mTotalGeral += Convert.ToDouble(e.Row.Cells[5].Text);
             }
             else if (e.Row.RowType == DataControlRowType.Footer)
             {
-                e.Row.Cells[6].Text = mTotalGeral.ToString("N2");
+                e.Row.Cells[5].Text = mTotalGeral.ToString("N2");
             }
         }
     }

@@ -15,10 +15,10 @@ namespace AuditoriaParlamentar
             if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated || !System.Web.HttpContext.Current.User.IsInRole("REVISOR"))
                 Response.Redirect("~/Default.aspx");
 
+            GridViewRevisao.PreRender += GridViewRevisao_PreRender;
+            
             if (!IsPostBack)
             {
-                GridViewRevisao.EmptyDataText = "Nenhum denúncia encontrada para os filtros informados.";
-
                 if (Session["CheckBoxNaoLidas"] != null)
                     CheckBoxNaoLidas.Checked = Convert.ToBoolean(Session["CheckBoxNaoLidas"]);
 
@@ -41,6 +41,17 @@ namespace AuditoriaParlamentar
                     CheckBoxRepetido.Checked = Convert.ToBoolean(Session["CheckBoxRepetido"]);
 
                 CarregaDados();
+            }
+        }
+
+        private void GridViewRevisao_PreRender(object sender, EventArgs e)
+        {
+            try
+            {
+                GridViewRevisao.HeaderRow.TableSection = TableRowSection.TableHeader;
+            }
+            catch (Exception ex)
+            {
             }
         }
 

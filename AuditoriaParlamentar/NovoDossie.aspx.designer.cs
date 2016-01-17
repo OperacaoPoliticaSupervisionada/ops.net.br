@@ -13,6 +13,15 @@ namespace AuditoriaParlamentar {
     public partial class NovoDossie {
         
         /// <summary>
+        /// HiddenFieldIdDossie control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenFieldIdDossie;
+        
+        /// <summary>
         /// ButtonVoltar control.
         /// </summary>
         /// <remarks>
@@ -40,33 +49,6 @@ namespace AuditoriaParlamentar {
         protected global::System.Web.UI.WebControls.Button ButtonExcluir;
         
         /// <summary>
-        /// ValidationSummary control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary;
-        
-        /// <summary>
-        /// Label3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
-        
-        /// <summary>
-        /// TextoValidator control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator TextoValidator;
-        
-        /// <summary>
         /// TextBoxNome control.
         /// </summary>
         /// <remarks>
@@ -76,22 +58,13 @@ namespace AuditoriaParlamentar {
         protected global::System.Web.UI.WebControls.TextBox TextBoxNome;
         
         /// <summary>
-        /// HiddenFieldIdDossie control.
+        /// TextoValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField HiddenFieldIdDossie;
-        
-        /// <summary>
-        /// Label4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label4;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator TextoValidator;
         
         /// <summary>
         /// GridViewResultado control.
