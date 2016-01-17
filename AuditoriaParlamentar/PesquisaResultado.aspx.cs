@@ -20,10 +20,14 @@ namespace AuditoriaParlamentar
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            GridViewResultado.PreRender += GridViewResultado_PreRender;
             mAuthenticated = System.Web.HttpContext.Current.User.Identity.IsAuthenticated;
 
             if (!IsPostBack)
             {
+                //Chave para exportação do CSV
+                ChavePesquisa.Value = Guid.NewGuid().ToString();
+
                 HiddenFieldGrupo.Value = HttpUtility.HtmlDecode(Request.QueryString["grupo"]);
                 HiddenFieldAgrupamento.Value = HttpUtility.HtmlDecode(Request.QueryString["agrupamentoNovo"]);
                 HiddenFieldSeparaMes.Value = HttpUtility.HtmlDecode(Request.QueryString["separaMes"]);
@@ -40,7 +44,7 @@ namespace AuditoriaParlamentar
                 HiddenFieldDocumento.Value = HttpUtility.HtmlDecode(Request.QueryString["documento"]);
 
                 String valorFiltro = HttpUtility.HtmlDecode(Request.QueryString["filtro"]);
-                LabelFiltro.Text = HttpUtility.HtmlDecode(Request.QueryString["descricao"]);
+                LabelFiltro.InnerText = HttpUtility.HtmlDecode(Request.QueryString["descricao"]);
                 String agrupamentoAtual = HttpUtility.HtmlDecode(Request.QueryString["agrupamentoAtual"]);
 
                 switch (agrupamentoAtual)
@@ -73,6 +77,29 @@ namespace AuditoriaParlamentar
                 }
 
                 Pesquisar();
+            }
+            else
+            {
+                if (Request["__EVENTTARGET"] == "ButtonExportar_Click")
+                {
+                    DataTable ultimaConsulta = HttpContext.Current.Session["AuditoriaUltimaConsulta" + ChavePesquisa.Value] as DataTable;
+                    if (ultimaConsulta != null)
+                    {
+                        ultimaConsulta.Columns.RemoveAt(0);
+                        CsvHelper.ExportarCSV(ultimaConsulta);
+                    }
+                }
+            }
+        }
+
+        private void GridViewResultado_PreRender(object sender, EventArgs e)
+        {
+            try
+            {
+                GridViewResultado.HeaderRow.TableSection = TableRowSection.TableHeader;
+            }
+            catch (Exception ex)
+            {
             }
         }
 
@@ -121,12 +148,12 @@ namespace AuditoriaParlamentar
             {
                 case GRUPO_DEPUTADO_FEDERAL:
                     Pesquisa pesquisa = new Pesquisa();
-                    pesquisa.Carregar(GridViewResultado, HttpContext.Current.User.Identity.Name, HiddenFieldDocumento.Value, HiddenFieldPeriodo.Value, HiddenFieldAgrupamento.Value, Convert.ToBoolean(HiddenFieldSeparaMes.Value), HiddenFieldAnoIni.Value, HiddenFieldMesIni.Value, HiddenFieldAnoFim.Value, HiddenFieldMesFim.Value, listParlamentares, listDespesas, listFornecedores, listUF, listPartido);
+                    pesquisa.Carregar(GridViewResultado, HttpContext.Current.User.Identity.Name, HiddenFieldDocumento.Value, HiddenFieldPeriodo.Value, HiddenFieldAgrupamento.Value, Convert.ToBoolean(HiddenFieldSeparaMes.Value), HiddenFieldAnoIni.Value, HiddenFieldMesIni.Value, HiddenFieldAnoFim.Value, HiddenFieldMesFim.Value, listParlamentares, listDespesas, listFornecedores, listUF, listPartido, ChavePesquisa.Value);
                     break;
 
                 case GRUPO_SENADOR:
                     PesquisaSenadores pesquisaSenadores = new PesquisaSenadores();
-                    pesquisaSenadores.Carregar(GridViewResultado, HttpContext.Current.User.Identity.Name, HiddenFieldDocumento.Value, HiddenFieldPeriodo.Value, HiddenFieldAgrupamento.Value, Convert.ToBoolean(HiddenFieldSeparaMes.Value), HiddenFieldAnoIni.Value, HiddenFieldMesIni.Value, HiddenFieldAnoFim.Value, HiddenFieldMesFim.Value, listParlamentares, listDespesas, listFornecedores, listUF, listPartido);
+                    pesquisaSenadores.Carregar(GridViewResultado, HttpContext.Current.User.Identity.Name, HiddenFieldDocumento.Value, HiddenFieldPeriodo.Value, HiddenFieldAgrupamento.Value, Convert.ToBoolean(HiddenFieldSeparaMes.Value), HiddenFieldAnoIni.Value, HiddenFieldMesIni.Value, HiddenFieldAnoFim.Value, HiddenFieldMesFim.Value, listParlamentares, listDespesas, listFornecedores, listUF, listPartido, ChavePesquisa.Value);
                     break;
             }
 
@@ -136,10 +163,7 @@ namespace AuditoriaParlamentar
             Session["SortDirection" + id] = "DESC";
             Session["SortExpression" + id] = "Valor Total";
 
-            if (GridViewResultado.Rows.Count == 1000)
-            {
-                LabelMaximo.Visible = true;
-            }
+            LabelMaximo.Visible = (GridViewResultado.Rows.Count == 1000);
         }
 
         protected void GridViewResultado_Sorting(object sender, GridViewSortEventArgs e)
@@ -241,7 +265,7 @@ namespace AuditoriaParlamentar
                     else
                         e.Row.Cells[i].Text = "0,00";
 
-                    e.Row.Cells[i].HorizontalAlign = HorizontalAlign.Right;
+                    //e.Row.Cells[i].HorizontalAlign = HorizontalAlign.Right;
                 }
 
                 Button buttonAuditar = (Button)e.Row.FindControl("ButtonAuditar");
@@ -326,11 +350,11 @@ namespace AuditoriaParlamentar
 
                 mTotalGeral += Convert.ToDouble(e.Row.Cells[e.Row.Cells.Count - 1].Text);
             }
-            else if (e.Row.RowType == DataControlRowType.Header)
-            {
-                for (Int32 i = inicioColunaValores; i < e.Row.Cells.Count; i++)
-                    e.Row.Cells[i].HorizontalAlign = HorizontalAlign.Right;
-            }
+            //else if (e.Row.RowType == DataControlRowType.Header)
+            //{
+            //   for (Int32 i = inicioColunaValores; i < e.Row.Cells.Count; i++)
+            //      e.Row.Cells[i].HorizontalAlign = HorizontalAlign.Right;
+            //}
             else if (e.Row.RowType == DataControlRowType.Footer)
             {
                 e.Row.Cells[e.Row.Cells.Count - 1].Text = mTotalGeral.ToString("N2");

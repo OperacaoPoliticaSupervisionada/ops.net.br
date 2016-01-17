@@ -38,7 +38,7 @@ namespace AuditoriaParlamentar.Classes
             DirectoryInfo dirInfor = new DirectoryInfo(dir);
 
             foreach (FileInfo fileInfo in dirInfor.GetFiles("*.xml"))
-                zip.Add(fileInfo.FullName, fileInfo.Name);
+                zip.Add(fileInfo.FullName, CompressionMethod.WinZipAES);
 
             zip.CommitUpdate();
             zip.Close();

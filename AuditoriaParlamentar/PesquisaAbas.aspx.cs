@@ -44,13 +44,16 @@ namespace AuditoriaParlamentar
 
             if (!IsPostBack)
             {
-                DropDownListAgrupamento.Items.Add(new ListItem(Pesquisa.AGRUPAMENTO_PARLAMENTAR, Pesquisa.AGRUPAMENTO_PARLAMENTAR));
-                DropDownListAgrupamento.Items.Add(new ListItem(Pesquisa.AGRUPAMENTO_DESPESA, Pesquisa.AGRUPAMENTO_DESPESA));
-                DropDownListAgrupamento.Items.Add(new ListItem(Pesquisa.AGRUPAMENTO_FORNECEDOR, Pesquisa.AGRUPAMENTO_FORNECEDOR));
-                DropDownListAgrupamento.Items.Add(new ListItem(Pesquisa.AGRUPAMENTO_PARTIDO, Pesquisa.AGRUPAMENTO_PARTIDO));
-                DropDownListAgrupamento.Items.Add(new ListItem(Pesquisa.AGRUPAMENTO_UF, Pesquisa.AGRUPAMENTO_UF));
-                DropDownListAgrupamento.Items.Add(new ListItem(Pesquisa.AGRUPAMENTO_DOCUMENTO, Pesquisa.AGRUPAMENTO_DOCUMENTO));
-
+                rptAgrupamento.DataSource = new List<string>()
+                {
+                    Pesquisa.AGRUPAMENTO_PARLAMENTAR,
+                    Pesquisa.AGRUPAMENTO_DESPESA,
+                    Pesquisa.AGRUPAMENTO_FORNECEDOR,
+                    Pesquisa.AGRUPAMENTO_PARTIDO,
+                    Pesquisa.AGRUPAMENTO_UF,
+                    Pesquisa.AGRUPAMENTO_DOCUMENTO
+                };
+                rptAgrupamento.DataBind();
             }
         }
     }

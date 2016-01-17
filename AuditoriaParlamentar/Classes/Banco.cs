@@ -18,7 +18,7 @@ namespace AuditoriaParlamentar
 
         internal Banco()
         {
-            String connStr = "Datasource=localhost;Database=auditoria;uid=ops;pwd=mis918CAT15awk;";
+            String connStr = System.Configuration.ConfigurationManager.ConnectionStrings["LocalMySqlServer"].ToString();
 
             mParametros = new List<MySqlParameter>();
             mConnection = new MySqlConnection(connStr);

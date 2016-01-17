@@ -21,6 +21,7 @@ namespace AuditoriaParlamentar
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            GridViewResultado.PreRender += GridViewResultado_PreRender;
             mAuthenticated = System.Web.HttpContext.Current.User.Identity.IsAuthenticated;
 
             if (mAuthenticated)
@@ -33,6 +34,9 @@ namespace AuditoriaParlamentar
 
             if (!IsPostBack)
             {
+                //Chave para exportação do CSV
+                ViewState["ChavePesquisa"] = Guid.NewGuid().ToString();
+
                 DropDownListGrupo.Items.Add(new ListItem(GRUPO_DEPUTADO_FEDERAL, GRUPO_DEPUTADO_FEDERAL));
                 DropDownListGrupo.Items.Add(new ListItem(GRUPO_SENADOR, GRUPO_SENADOR));
 
@@ -134,27 +138,34 @@ namespace AuditoriaParlamentar
                     DropDownListAnoFinal.Items.Add(new ListItem(i.ToString(), i.ToString()));
                 }
 
-                DropDownListPerido.Attributes.Add("onchange", "showHiddenPeriodo(this);");
-                
-                ListBoxParlamentar.Attributes.Add("onkeydown", "deleteFromList(document.getElementById('" + ListBoxParlamentar.ClientID + "'), document.getElementById('" + hidListBoxParlamentar.ClientID + "'));");
-                ListBoxDespesa.Attributes.Add("onkeydown", "deleteFromList(document.getElementById('" + ListBoxDespesa.ClientID + "'), document.getElementById('" + hidListBoxDespesa.ClientID + "'));");
-                ListBoxFornecedor.Attributes.Add("onkeydown", "deleteFromList(document.getElementById('" + ListBoxFornecedor.ClientID + "'), document.getElementById('" + hidListBoxFornecedor.ClientID + "'));");
-                ListBoxUF.Attributes.Add("onkeydown", "deleteFromList(document.getElementById('" + ListBoxUF.ClientID + "'), document.getElementById('" + hidListBoxUF.ClientID + "'));");
-                ListBoxPartido.Attributes.Add("onkeydown", "deleteFromList(document.getElementById('" + ListBoxPartido.ClientID + "'), document.getElementById('" + hidListBoxPartido.ClientID + "'));");
+                //DropDownListPerido.Attributes.Add("onchange", "showHiddenPeriodo(this);");
             }
+            else
+            {
+                if (Request["__EVENTTARGET"] == "ButtonExportar_Click")
+                {
+                    if (ViewState["ChavePesquisa"] != null)
+                    {
+                        DataTable ultimaConsulta = HttpContext.Current.Session["AuditoriaUltimaConsulta" + ViewState["ChavePesquisa"].ToString()] as DataTable;
+                        if (ultimaConsulta != null)
+                        {
+                            ultimaConsulta.Columns.RemoveAt(0);
+                            CsvHelper.ExportarCSV(ultimaConsulta);
+                        }
+                    }
+                }
+            }
+        }
 
-            ClientScriptManager clientScriptManager = this.ClientScript;
-            clientScriptManager.RegisterClientScriptBlock(DropDownListPerido.GetType(), "onchangeListPeriodo", "function showHiddenPeriodo(control){ if(control.options[control.selectedIndex].value == '" + Pesquisa.PERIODO_INFORMAR + "'){ document.getElementById('tablePeriodo').style.display = 'block'; } else { document.getElementById('tablePeriodo').style.display = 'none';}}", true);
-            clientScriptManager.RegisterClientScriptBlock(this.GetType(), "onKeyList", "function deleteFromList(controlOri, controlHidden){ if (event.keyCode == 46) { for(var i=(controlOri.options.length - 1); i>=0; i--) { if(controlOri.options[i].selected){ controlHidden.value = controlHidden.value.replace(controlOri.options[i].text + '|' + controlOri.options[i].value + '|', ''); controlOri.options[i] = null;}} } }", true);
-            clientScriptManager.RegisterClientScriptBlock(this.GetType(), "addListBox", "function addListBox(controlOri, controlDes, controlHidden){ var opt = document.createElement('option'); opt.text = controlOri.options[controlOri.selectedIndex].text; opt.value = controlOri.options[controlOri.selectedIndex].value; var i = 0; for(i=0; i < controlDes.options.length; i++){ if(controlDes.options[i].value == opt.value) { return; } } controlDes.options.add(opt); controlHidden.value = controlHidden.value + opt.text + '|' + opt.value + '|';}", true);
-            clientScriptManager.RegisterClientScriptBlock(this.GetType(), "addListBox2", "function addListBox2(controlOri, controlDes, controlHidden){ var opt = document.createElement('option'); opt.text = controlOri.value; opt.value = controlOri.value; if(opt.value == ''){ return false; } var i = 0; for(i=0; i < controlDes.options.length; i++){ if(controlDes.options[i].value == opt.value) { return; } } controlDes.options.add(opt); controlHidden.value = controlHidden.value + opt.text + '|' + opt.value + '|'; controlOri.value = '';}", true);
-
-            ImageButtonAddParlamentar.OnClientClick = "addListBox(document.getElementById('" + DropDownListParlamentar.ClientID + "'), document.getElementById('" + ListBoxParlamentar.ClientID + "'), document.getElementById('" + hidListBoxParlamentar.ClientID + "')); return false;";
-            ImageButtonAddDespesa.OnClientClick = "addListBox(document.getElementById('" + DropDownListDespesa.ClientID + "'), document.getElementById('" + ListBoxDespesa.ClientID + "'), document.getElementById('" + hidListBoxDespesa.ClientID + "')); return false;";
-            ImageButtonAddFornecedor.OnClientClick = "addListBox2(document.getElementById('" + TextBoxFornecedor.ClientID + "'), document.getElementById('" + ListBoxFornecedor.ClientID + "'), document.getElementById('" + hidListBoxFornecedor.ClientID + "')); return false;";
-            ImageButtonAddUF.OnClientClick = "addListBox(document.getElementById('" + DropDownListUF.ClientID + "'), document.getElementById('" + ListBoxUF.ClientID + "'), document.getElementById('" + hidListBoxUF.ClientID + "')); return false;";
-            ImageButtonAddPartido.OnClientClick = "addListBox(document.getElementById('" + DropDownListPartido.ClientID + "'), document.getElementById('" + ListBoxPartido.ClientID + "'), document.getElementById('" + hidListBoxPartido.ClientID + "')); return false;";
-
+        private void GridViewResultado_PreRender(object sender, EventArgs e)
+        {
+            try
+            {
+                GridViewResultado.HeaderRow.TableSection = TableRowSection.TableHeader;
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         protected void Page_LoadComplete(Object sender, EventArgs e)
@@ -167,8 +178,11 @@ namespace AuditoriaParlamentar
                 {
                     DropDownListAgrupamento.SelectedValue = Pesquisa.AGRUPAMENTO_PARLAMENTAR;
                     DropDownListPerido.SelectedValue = Pesquisa.PERIODO_MES_ULT_4;
-                    DropDownListUF.SelectedValue = Session["UFPesquisa"].ToString();
-                    hidListBoxUF.Value = DropDownListUF.SelectedItem.Text + "|" + DropDownListUF.SelectedItem.Value;
+                    ListItem item = DropDownListUF.Items.FindByValue(Session["UFPesquisa"].ToString());
+                    if (item != null)
+                    {
+                        item.Selected = true;
+                    }
 
                     Session.Remove("UFPesquisa");
                 }
@@ -188,7 +202,6 @@ namespace AuditoriaParlamentar
                     if (item != null)
                     {
                         item.Selected = true;
-                        hidListBoxParlamentar.Value = item.Text + "|" + item.Value;
                     }
 
                     Session.Remove("SenadorPesquisa");
@@ -196,6 +209,13 @@ namespace AuditoriaParlamentar
                 else if (Convert.ToString(Session["TipoPesquisa"]) == "IdShare")
                 {
                     Int32.TryParse(Session["IdSharePesquisa"].ToString(), out mIdShare);
+                }
+                else if (Convert.ToString(Session["TipoPesquisa"]) == "CARGO")
+                {
+                    DropDownListGrupo.SelectedValue = Convert.ToString(Session["CargoPesquisa"]);
+                    DropDownListPerido.SelectedValue = Pesquisa.PERIODO_MES_ULT_4;
+
+                    Session.Remove("CargoPesquisa");
                 }
 
                 Session.Remove("TipoPesquisa");
@@ -221,11 +241,11 @@ namespace AuditoriaParlamentar
                 DropDownListGrupo.SelectedValue = parametros.Cargo;
                 DropDownListAgrupamento.SelectedValue = parametros.Agrupamento;
                 DropDownListPerido.SelectedValue = Pesquisa.PERIODO_INFORMAR;
-                hidListBoxParlamentar.Value = parametros.Parlamentares;
-                hidListBoxDespesa.Value = parametros.Despesas;
-                hidListBoxFornecedor.Value = parametros.Fornecedores;
-                hidListBoxPartido.Value = parametros.Partidos;
-                hidListBoxUF.Value = parametros.Ufs;
+                //hidListBoxParlamentar.Value = parametros.Parlamentares;
+                //hidListBoxDespesa.Value = parametros.Despesas;
+                //hidListBoxFornecedor.Value = parametros.Fornecedores;
+                //hidListBoxPartido.Value = parametros.Partidos;
+                //hidListBoxUF.Value = parametros.Ufs;
                 DropDownListMesInicial.SelectedValue = parametros.MesInicial.ToString("00");
                 DropDownListAnoInicial.SelectedValue = parametros.AnoInicial.ToString("00");
                 DropDownListMesFinal.SelectedValue = parametros.MesFinal.ToString("00");
@@ -244,62 +264,92 @@ namespace AuditoriaParlamentar
                 }
             }
 
-            String[] parlamentares = hidListBoxParlamentar.Value.Split('|');
-            ListBoxParlamentar.Items.Clear();
-            for (Int32 i = 0; i < parlamentares.Length - 1; i += 2)
-            {
-                if (i == 0)
-                    Session["ParlamentarQueEstaSendoAuditado"] = parlamentares[i + 1];
+            //String[] parlamentares = hidListBoxParlamentar.Value.Split('|');
+            //ListBoxParlamentar.Items.Clear();
+            //for (Int32 i = 0; i < parlamentares.Length - 1; i += 2)
+            //{
+            //    if (i == 0)
+            //        Session["ParlamentarQueEstaSendoAuditado"] = parlamentares[i + 1];
 
-                if (!ListBoxParlamentar.Items.Contains(new ListItem(parlamentares[i], parlamentares[i + 1])))
-                    ListBoxParlamentar.Items.Add(new ListItem(parlamentares[i], parlamentares[i + 1]));
-            }
+            //    if (!ListBoxParlamentar.Items.Contains(new ListItem(parlamentares[i], parlamentares[i + 1])))
+            //        ListBoxParlamentar.Items.Add(new ListItem(parlamentares[i], parlamentares[i + 1]));
+            //}
 
-            String[] despesas = hidListBoxDespesa.Value.Split('|');
-            ListBoxDespesa.Items.Clear();
-            for (Int32 i = 0; i < despesas.Length - 1; i += 2)
-            {
-                if (!ListBoxDespesa.Items.Contains(new ListItem(despesas[i], despesas[i + 1])))
-                    ListBoxDespesa.Items.Add(new ListItem(despesas[i], despesas[i + 1]));
-            }
+            //String[] despesas = hidListBoxDespesa.Value.Split('|');
+            //ListBoxDespesa.Items.Clear();
+            //for (Int32 i = 0; i < despesas.Length - 1; i += 2)
+            //{
+            //    if (!ListBoxDespesa.Items.Contains(new ListItem(despesas[i], despesas[i + 1])))
+            //        ListBoxDespesa.Items.Add(new ListItem(despesas[i], despesas[i + 1]));
+            //}
 
-            String[] fornecedor = hidListBoxFornecedor.Value.Split('|');
-            ListBoxFornecedor.Items.Clear();
-            for (Int32 i = 0; i < fornecedor.Length - 1; i += 2)
-            {
-                if (!ListBoxFornecedor.Items.Contains(new ListItem(fornecedor[i], fornecedor[i + 1])))
-                    ListBoxFornecedor.Items.Add(new ListItem(fornecedor[i], fornecedor[i + 1]));
-            }
+            //String[] fornecedor = hidListBoxFornecedor.Value.Split('|');
+            //ListBoxFornecedor.Items.Clear();
+            //for (Int32 i = 0; i < fornecedor.Length - 1; i += 2)
+            //{
+            //    if (!ListBoxFornecedor.Items.Contains(new ListItem(fornecedor[i], fornecedor[i + 1])))
+            //        ListBoxFornecedor.Items.Add(new ListItem(fornecedor[i], fornecedor[i + 1]));
+            //}
 
-            String[] uf = hidListBoxUF.Value.Split('|');
-            ListBoxUF.Items.Clear();
-            for (Int32 i = 0; i < uf.Length - 1; i += 2)
-            {
-                if (!ListBoxUF.Items.Contains(new ListItem(uf[i], uf[i + 1])))
-                    ListBoxUF.Items.Add(new ListItem(uf[i], uf[i + 1]));
-            }
+            //String[] uf = hidListBoxUF.Value.Split('|');
+            //ListBoxUF.Items.Clear();
+            //for (Int32 i = 0; i < uf.Length - 1; i += 2)
+            //{
+            //    if (!ListBoxUF.Items.Contains(new ListItem(uf[i], uf[i + 1])))
+            //        ListBoxUF.Items.Add(new ListItem(uf[i], uf[i + 1]));
+            //}
 
-            String[] partidos = hidListBoxPartido.Value.Split('|');
-            ListBoxPartido.Items.Clear();
-            for (Int32 i = 0; i < partidos.Length - 1; i += 2)
-            {
-                if (!ListBoxPartido.Items.Contains(new ListItem(partidos[i], partidos[i + 1])))
-                    ListBoxPartido.Items.Add(new ListItem(partidos[i], partidos[i + 1]));
-            }
+            //String[] partidos = hidListBoxPartido.Value.Split('|');
+            //ListBoxPartido.Items.Clear();
+            //for (Int32 i = 0; i < partidos.Length - 1; i += 2)
+            //{
+            //    if (!ListBoxPartido.Items.Contains(new ListItem(partidos[i], partidos[i + 1])))
+            //        ListBoxPartido.Items.Add(new ListItem(partidos[i], partidos[i + 1]));
+            //}
 
-            HiddenFieldGrupo.Value = DropDownListGrupo.SelectedValue;
-            HiddenFieldAgrupamentoAtual.Value = DropDownListAgrupamento.SelectedValue;
+            //HiddenFieldGrupo.Value = DropDownListGrupo.SelectedValue;
+            //HiddenFieldAgrupamentoAtual.Value = DropDownListAgrupamento.SelectedValue;
 
             switch (DropDownListGrupo.SelectedValue)
             {
                 case GRUPO_DEPUTADO_FEDERAL:
                     Pesquisa pesquisa = new Pesquisa();
-                    pesquisa.Carregar(GridViewResultado, HttpContext.Current.User.Identity.Name, "", DropDownListPerido.SelectedValue, DropDownListAgrupamento.SelectedValue, CheckBoxSepararMes.Checked, DropDownListAnoInicial.SelectedValue, DropDownListMesInicial.SelectedValue, DropDownListAnoFinal.SelectedValue, DropDownListMesFinal.SelectedValue, ListBoxParlamentar.Items, ListBoxDespesa.Items, ListBoxFornecedor.Items, ListBoxUF.Items, ListBoxPartido.Items);
+                    pesquisa.Carregar(GridViewResultado,
+                        HttpContext.Current.User.Identity.Name,
+                        "",
+                        DropDownListPerido.SelectedValue,
+                        DropDownListAgrupamento.SelectedValue,
+                        CheckBoxSepararMes.Checked,
+                        DropDownListAnoInicial.SelectedValue,
+                        DropDownListMesInicial.SelectedValue,
+                        DropDownListAnoFinal.SelectedValue,
+                        DropDownListMesFinal.SelectedValue,
+                        DropDownListParlamentar.Items,
+                        DropDownListDespesa.Items,
+                        DropDownListFornecedor.Items,
+                        DropDownListUF.Items,
+                        DropDownListPartido.Items,
+                        ViewState["ChavePesquisa"].ToString());
                     break;
 
                 case GRUPO_SENADOR:
                     PesquisaSenadores pesquisaSenadores = new PesquisaSenadores();
-                    pesquisaSenadores.Carregar(GridViewResultado, HttpContext.Current.User.Identity.Name, "", DropDownListPerido.SelectedValue, DropDownListAgrupamento.SelectedValue, CheckBoxSepararMes.Checked, DropDownListAnoInicial.SelectedValue, DropDownListMesInicial.SelectedValue, DropDownListAnoFinal.SelectedValue, DropDownListMesFinal.SelectedValue, ListBoxParlamentar.Items, ListBoxDespesa.Items, ListBoxFornecedor.Items, ListBoxUF.Items, ListBoxPartido.Items);
+                    pesquisaSenadores.Carregar(GridViewResultado,
+                        HttpContext.Current.User.Identity.Name,
+                        "",
+                        DropDownListPerido.SelectedValue,
+                        DropDownListAgrupamento.SelectedValue,
+                        CheckBoxSepararMes.Checked,
+                        DropDownListAnoInicial.SelectedValue,
+                        DropDownListMesInicial.SelectedValue,
+                        DropDownListAnoFinal.SelectedValue,
+                        DropDownListMesFinal.SelectedValue,
+                        DropDownListParlamentar.Items,
+                        DropDownListDespesa.Items,
+                        DropDownListFornecedor.Items,
+                        DropDownListUF.Items,
+                        DropDownListPartido.Items,
+                        ViewState["ChavePesquisa"].ToString());
                     break;
             }
 
@@ -309,8 +359,13 @@ namespace AuditoriaParlamentar
 
             if (GridViewResultado.Rows.Count == 1000)
             {
-                LabelMaximo.Text = "O resultado está limitado a 1.000 registros para evitar sobrecarga.";
+                LabelMaximo.InnerText = "O resultado está limitado a 1.000 registros para evitar sobrecarga.";
                 LabelMaximo.Visible = true;
+            }
+            else
+            {
+                LabelMaximo.InnerText = "";
+                LabelMaximo.Visible = false;
             }
         }
 
@@ -411,7 +466,7 @@ namespace AuditoriaParlamentar
                     else
                         e.Row.Cells[i].Text = "0,00";
 
-                    e.Row.Cells[i].HorizontalAlign = HorizontalAlign.Right;
+                    //e.Row.Cells[i].HorizontalAlign = HorizontalAlign.Right;
                 }
 
                 Button buttonAuditar = (Button)e.Row.FindControl("ButtonAuditar");
@@ -518,14 +573,6 @@ namespace AuditoriaParlamentar
             DropDownListDespesa.Items.Clear();
             DropDownListPartido.Items.Clear();
 
-            ListBoxParlamentar.Items.Clear();
-            ListBoxDespesa.Items.Clear();
-            ListBoxPartido.Items.Clear();
-
-            hidListBoxParlamentar.Value = "";
-            hidListBoxDespesa.Value = "";
-            hidListBoxPartido.Value = "";
-
             switch (DropDownListGrupo.SelectedValue)
             {
                 case GRUPO_DEPUTADO_FEDERAL:
@@ -561,11 +608,11 @@ namespace AuditoriaParlamentar
             ParametrosShare parametros = new ParametrosShare();
             parametros.Cargo = DropDownListGrupo.SelectedValue;
             parametros.Agrupamento = DropDownListAgrupamento.SelectedValue;
-            parametros.Parlamentares = hidListBoxParlamentar.Value;
-            parametros.Despesas = hidListBoxDespesa.Value;
-            parametros.Fornecedores = hidListBoxFornecedor.Value;
-            parametros.Partidos = hidListBoxPartido.Value;
-            parametros.Ufs = hidListBoxUF.Value;
+            parametros.Parlamentares = DropDownListParlamentar.SelectedItems();
+            parametros.Despesas = DropDownListDespesa.SelectedItems();
+            parametros.Fornecedores = DropDownListFornecedor.SelectedItems();
+            parametros.Partidos = DropDownListPartido.SelectedItems();
+            parametros.Ufs = DropDownListUF.SelectedItems();
             parametros.MesInicial = Convert.ToInt32(DropDownListMesInicial.SelectedValue);
             parametros.AnoInicial = Convert.ToInt32(DropDownListAnoInicial.SelectedValue);
             parametros.MesFinal = Convert.ToInt32(DropDownListMesFinal.SelectedValue);
@@ -573,7 +620,7 @@ namespace AuditoriaParlamentar
 
             DbShare.Incluir(parametros);
 
-            LabelMaximo.Text = "http://ops.net.br/PesquisaInicio.aspx?IdShare=" + parametros.Id.ToString();
+            LabelMaximo.InnerText = "http://ops.net.br/PesquisaInicio.aspx?IdShare=" + parametros.Id.ToString();
             LabelMaximo.Visible = true;
         }
     }

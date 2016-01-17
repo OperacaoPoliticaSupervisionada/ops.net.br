@@ -14,30 +14,21 @@ namespace AuditoriaParlamentar
         {
             if (!IsPostBack)
             {
-                HyperLinkParlamentar.NavigateUrl = "PesquisaInicio.aspx?GA=" + Pesquisa.AGRUPAMENTO_PARLAMENTAR;
-                HyperLinkDespesa.NavigateUrl = "PesquisaInicio.aspx?GA=" + Pesquisa.AGRUPAMENTO_DESPESA;
-                HyperLinkEstado.NavigateUrl = "PesquisaInicio.aspx?GA=" + Pesquisa.AGRUPAMENTO_UF;
-                HyperLinkPartido.NavigateUrl = "PesquisaInicio.aspx?GA=" + Pesquisa.AGRUPAMENTO_PARTIDO;
-                HyperLinkFornecedor.NavigateUrl = "PesquisaInicio.aspx?GA=" + Pesquisa.AGRUPAMENTO_FORNECEDOR;
-
                 AcompanhaDenuncias denuncia = new AcompanhaDenuncias();
-                LabelDenunciasEnviadas.Text = denuncia.TotalDenuncias(Cache).ToString("N0");
-                LabelFornecedoresDenunciados.Text = denuncia.TotalFornecedoresDenunciados(Cache).ToString("N0");
-                LabelParlamentaresAtingidos.Text = denuncia.TotalParlamentaresAtingidos(Cache).ToString("N0");
+
+                try
+                {
+                    rptResumoAuditoria.DataSource = ComandoSQL.ExecutarConsultaSimples(Cache, ComandoSQL.eGrupoComandoSQL.ResumoAuditoria);
+                    rptResumoAuditoria.DataBind();
+                }
+                catch (Exception)
+                {
+                    rptResumoAuditoria.Visible = false;
+                }
+
 
                 Noticia noticia = new Noticia();
-                noticia.UltimasNoticias(Cache, GridViewNoticia);
-            }
-        }
-
-        protected void GridViewNoticia_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType != DataControlRowType.EmptyDataRow)
-            {
-                e.Row.Cells[3].Visible = false;
-                e.Row.Cells[4].Visible = false;
-                e.Row.Cells[5].Visible = false;
-                e.Row.Cells[6].Visible = false;
+                noticia.UltimasNoticias(Cache, rptNoticia);
             }
         }
     }

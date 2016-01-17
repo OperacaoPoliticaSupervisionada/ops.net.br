@@ -13,13 +13,13 @@ namespace AuditoriaParlamentar {
     public partial class PesquisaResultado {
         
         /// <summary>
-        /// form1 control.
+        /// form_auditoria control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form_auditoria;
         
         /// <summary>
         /// LabelFiltro control.
@@ -28,7 +28,7 @@ namespace AuditoriaParlamentar {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelFiltro;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LabelFiltro;
         
         /// <summary>
         /// LabelMaximo control.
@@ -37,7 +37,7 @@ namespace AuditoriaParlamentar {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelMaximo;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl LabelMaximo;
         
         /// <summary>
         /// GridViewResultado control.
@@ -173,5 +173,14 @@ namespace AuditoriaParlamentar {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField HiddenFieldDocumento;
+        
+        /// <summary>
+        /// ChavePesquisa control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField ChavePesquisa;
     }
 }

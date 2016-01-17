@@ -28,13 +28,15 @@ namespace AuditoriaParlamentar
         public const String AGRUPAMENTO_UF = "Por UF (Parlamentar)";
         public const String AGRUPAMENTO_PARTIDO = "Por Partido";
         public const String AGRUPAMENTO_DOCUMENTO = "Por Documento";
-        
+        public const String CARGO_DEPUTADO_FEDERAL = "Deputado Federal";
+        public const String CARGO_SENADOR = "Senador";
+
         public const Int32 INDEX_COLUNA_AUDITEI = 3;
 
         public static String AnoMesIni { get; set; }
         public static String AnoMesFim { get; set; }
 
-        internal void Carregar(GridView grid, String userName, String documento, String periodo, String agrupamento, Boolean separarMes, String anoIni, String mesIni, String anoFim, String mesFim, ListItemCollection ItemsParlamentar, ListItemCollection ItemsDespesa, ListItemCollection ItemsFornecedor, ListItemCollection ItemsUF, ListItemCollection ItemsPartidos)
+        internal void Carregar(GridView grid, String userName, String documento, String periodo, String agrupamento, Boolean separarMes, String anoIni, String mesIni, String anoFim, String mesFim, ListItemCollection ItemsParlamentar, ListItemCollection ItemsDespesa, ListItemCollection ItemsFornecedor, ListItemCollection ItemsUF, ListItemCollection ItemsPartidos, string ChavePesquisa)
         {
             using(Banco banco = new Banco())
             {
@@ -393,7 +395,7 @@ namespace AuditoriaParlamentar
 
                     FormataColunas(agrupamento, table);
 
-
+                    HttpContext.Current.Session["AuditoriaUltimaConsulta" + ChavePesquisa] = table;
                     grid.DataSource = table;
                     grid.DataBind();
 

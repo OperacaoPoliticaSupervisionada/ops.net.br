@@ -31,8 +31,6 @@ namespace AuditoriaParlamentar
             {
                 if (idNoticia > 0)
                 {
-                    HiddenFieldIdNoticia.Value = idNoticia.ToString();
-
                     Noticia noticia = new Noticia();
                     noticia.CarregaNoticia(idNoticia);
 
@@ -53,9 +51,9 @@ namespace AuditoriaParlamentar
             noticia.LinkNoticia = TextBoxLink.Text;
             noticia.UserName = System.Web.HttpContext.Current.User.Identity.Name;
 
-            if (HiddenFieldIdNoticia.Value != null && HiddenFieldIdNoticia.Value != "")
+            if (Request.QueryString["IdNoticia"] != null)
             {
-                noticia.IdNoticia = Convert.ToInt64(HiddenFieldIdNoticia.Value);
+                noticia.IdNoticia = Convert.ToInt64(HttpUtility.HtmlDecode(Request.QueryString["IdNoticia"]));
                 noticia.AtualizaNoticia();
 
                 if (FileUpload.HasFile)
@@ -97,11 +95,6 @@ namespace AuditoriaParlamentar
             graphic.DrawImage(image, 0, 0, width, height);
             target.Save(Server.MapPath("Noticias") + "\\" + idNoticia.ToString() + ".png");
 
-        }
-
-        protected void ButtonVoltar_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("~/Noticias.aspx");
         }
     }
 }

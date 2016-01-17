@@ -47,6 +47,18 @@ namespace AuditoriaParlamentar
                     ButtonExcluir.Visible = false;
                 }
             }
+            GridViewResultado.PreRender += GridViewResultado_PreRender;
+        }
+
+        protected void GridViewResultado_PreRender(object sender, EventArgs e)
+        {
+            try
+            {
+                GridViewResultado.HeaderRow.TableSection = TableRowSection.TableHeader;
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         protected void ButtonVoltar_Click(object sender, EventArgs e)
@@ -144,7 +156,7 @@ namespace AuditoriaParlamentar
         {
             Dossie dossie = new Dossie();
             dossie.IdDossie = Convert.ToInt32(HiddenFieldIdDossie.Value);
-            
+
             if (dossie.Excluir() == true)
                 Response.Redirect("~/Dossies.aspx");
             else

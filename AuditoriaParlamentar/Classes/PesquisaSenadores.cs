@@ -15,7 +15,7 @@ namespace AuditoriaParlamentar.Classes
         public static String AnoMesIni { get; set; }
         public static String AnoMesFim { get; set; }
 
-        internal void Carregar(GridView grid, String userName, String documento, String periodo, String agrupamento, Boolean separarMes, String anoIni, String mesIni, String anoFim, String mesFim, ListItemCollection ItemsParlamentar, ListItemCollection ItemsDespesa, ListItemCollection ItemsFornecedor, ListItemCollection ItemsUF, ListItemCollection ItemsPartidos)
+        internal void Carregar(GridView grid, String userName, String documento, String periodo, String agrupamento, Boolean separarMes, String anoIni, String mesIni, String anoFim, String mesFim, ListItemCollection ItemsParlamentar, ListItemCollection ItemsDespesa, ListItemCollection ItemsFornecedor, ListItemCollection ItemsUF, ListItemCollection ItemsPartidos, string ChavePesquisa)
         {
             using (Banco banco = new Banco())
             {
@@ -397,10 +397,9 @@ namespace AuditoriaParlamentar.Classes
 
                     FormataColunas(agrupamento, table);
 
-
+                    HttpContext.Current.Session["AuditoriaUltimaConsulta" + ChavePesquisa] = table;
                     grid.DataSource = table;
                     grid.DataBind();
-
                 }
             }
         }

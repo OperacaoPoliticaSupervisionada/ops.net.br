@@ -55,11 +55,24 @@ namespace AuditoriaParlamentar
                     PanelExisteDenuncia.Visible = true;
 
                     if (GridViewDenuncias.Rows.Count == 1)
-                        LabelExisteDenuncia.Text = "Este fornecedor possui 1 denúncia. Evite enviar denúncias repetidas caso existam outras recentes.";
+                        dvDenuncias.InnerText = "Este fornecedor possui 1 denúncia. Evite enviar denúncias repetidas caso existam outras recentes.";
                     else
-                        LabelExisteDenuncia.Text = "Este fornecedor possui " + GridViewDenuncias.Rows.Count.ToString() + " denúncias. Evite enviar denúncias repetidas caso existam outras recentes.";
+                        dvDenuncias.InnerText = "Este fornecedor possui " + GridViewDenuncias.Rows.Count.ToString() + " denúncias. Evite enviar denúncias repetidas caso existam outras recentes.";
                 }
                 
+            }
+
+            GridViewDenuncias.PreRender += GridViewDenuncias_PreRender;
+        }
+
+        protected void GridViewDenuncias_PreRender(object sender, EventArgs e)
+        {
+            try
+            {
+                GridViewDenuncias.HeaderRow.TableSection = TableRowSection.TableHeader;
+            }
+            catch (Exception ex)
+            {
             }
         }
 

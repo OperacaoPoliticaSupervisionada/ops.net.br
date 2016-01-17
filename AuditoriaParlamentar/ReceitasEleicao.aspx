@@ -5,97 +5,39 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <style type="text/css">
-
-
-table {
-	font-size: 1em;
-}
-
-.fonte
-{
-    font-family: Tahoma;
-    font-size: 10pt;
-}
-
-        a:link
-        {
-            color: #034af3;
-        }
-        
-        .style2
-        {
-            height: 23px;
-        }
-        
-        .fonte0
-        {
-            font-family: Verdana;
-            font-size: small;
-        }
-        
-        .fonte1
-        {
-            font-family: Verdana;
-            font-weight: bold;
-            font-size: small;
-        }
-            
-        </style>
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/assets/css/style.css" rel="stylesheet" />
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/") %>assets/js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="<%= ResolveClientUrl("~/") %>assets/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <form id="form1" runat="server">
-    <div>
-    
-        <table class="table100">
-            <tr>
-                <td>
-                    <table>
-                        <tr>
-                            <td>
-                    <asp:Label ID="Label1" runat="server" Text="CNPJ:" CssClass="fonte0"></asp:Label>
-                            </td>
-                            <td>
-                    <asp:Label ID="LabelCNPJ" runat="server" Text="Label" Font-Bold="True" 
-                                CssClass="fonte1"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                    <asp:Label ID="Label3" runat="server" Text="Razão Social:" CssClass="fonte0"></asp:Label>
-                            </td>
-                            <td>
-                    <asp:Label ID="LabelRazaoSocial" runat="server" Text="Label" 
-                        CssClass="fonte1"></asp:Label>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td class="style2">
-                    <asp:GridView ID="GridViewResultado" runat="server" CellPadding="4"
-                        ForeColor="#333333" GridLines="None" ShowHeaderWhenEmpty="True" Width="100%"
-                        OnRowDataBound="GridViewResultado_RowDataBound"
-                        ShowFooter="True">
-                        <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
-                        <EditRowStyle BackColor="#999999" />
-                        <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" CssClass="fonte" />
-                        <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" HorizontalAlign="Left"
-                            CssClass="fonte" />
-                        <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
-                        <RowStyle BackColor="#F7F6F3" ForeColor="#333333" CssClass="fonte" />
-                        <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-                        <SortedAscendingCellStyle BackColor="#E9E7E2" />
-                        <SortedAscendingHeaderStyle BackColor="#506C8C" />
-                        <SortedDescendingCellStyle BackColor="#FFFDF8" />
-                        <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
+    <div class="container-fluid">
+        <form id="form2" runat="server">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">CNPJ/CPF:</label>
+                        <span runat="server" id="lblCNPJ" class="control-label show"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">Razão Social:</label>
+                        <span runat="server" id="lblrazaoSocial" class="control-label show"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <asp:GridView ID="GridViewResultado" runat="server" AllowSorting="false" 
+                        UseAccessibleHeader="true" OnRowDataBound="GridViewResultado_RowDataBound"
+                        CssClass="table table-hover table-striped" GridLines="None" ShowFooter="True"
+                        EmptyDataText="Não há doações para exibir!" EmptyDataRowStyle-HorizontalAlign="Center">
+                        <RowStyle CssClass="cursor-pointer" />
                     </asp:GridView>
-                </td>
-            </tr>
-        </table>
-    
+                </div>
+            </div>
+        </form>
     </div>
-    </form>
 </body>
 </html>
