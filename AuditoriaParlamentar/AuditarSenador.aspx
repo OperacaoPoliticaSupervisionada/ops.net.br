@@ -2,10 +2,6 @@
     AutoEventWireup="true" CodeBehind="AuditarSenador.aspx.cs" Inherits="AuditoriaParlamentar.AuditarSenador" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
-    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/assets/css/style.css" rel="stylesheet" />
-    <script type="text/javascript" src="assets/js/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container-fluid">
@@ -29,7 +25,7 @@
                             dispoível para os demais membros da OPS saberem quem já está sendo auditado.
                 </p>
                 <p class="text-center">
-                    <a href="http://luciobig.blogspot.com.br/p/operacao-senado-transparente.html" target="_blank">Para acessar o formulário clique aqui.</a>
+                    <a href="http://luciobig.com.br/2014/07/31/operacao-senado-transparente-2/" target="_blank">Para acessar o formulário clique aqui.</a>
                 </p>
             </div>
         </div>
@@ -42,28 +38,30 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <asp:GridView ID="GridView" runat="server" AllowSorting="false" AutoGenerateColumns="false"
-                    UseAccessibleHeader="true" OnRowCommand="GridView_RowCommand" OnRowDataBound="GridView_RowDataBound"
-                    CssClass="table table-hover table-striped" GridLines="None"
-                    EmptyDataText="Nenhum Anexo Adicionado!" EmptyDataRowStyle-HorizontalAlign="Center">
-                    <Columns>
-                        <asp:TemplateField HeaderText="Selecionar">
-                            <ItemTemplate>
-                                <center><asp:CheckBox ID="CheckBoxSelecionar" runat="server" /></center>
-                            </ItemTemplate>
-                            <HeaderStyle Width="50px" />
-                        </asp:TemplateField>
-                        <asp:BoundField DataField="UserName" HeaderText="Usuário" SortExpression="UserName" />
-                        <asp:BoundField DataField="NomeParlamentar" HeaderText="Senador" SortExpression="NomeParlamentar" />
-                        <asp:BoundField DataField="CodigoParlamentar" HeaderText="CodigoParlamentar" />
-                        <asp:BoundField DataField="SiglaPartido" HeaderText="Partido" SortExpression="SiglaPartido" />
-                        <asp:BoundField DataField="SiglaUf" HeaderText="UF" SortExpression="SiglaUf" />
-                        <asp:HyperLinkField DataNavigateUrlFields="url" HeaderText="Site" Target="_blank" Text="Site" />
-                        <asp:BoundField DataField="DespesasMandato" HeaderText="Gastos no Mandato" SortExpression="DespesasMandato" />
-                        <asp:CommandField ButtonType="Button" SelectText="Auditar" ShowSelectButton="True" ControlStyle-CssClass="btn btn-primary btn-sm" />
-                    </Columns>
-                    <RowStyle CssClass="cursor-pointer" />
-                </asp:GridView>
+                <div class="table-responsive">
+                    <asp:GridView ID="GridView" runat="server" AllowSorting="false" AutoGenerateColumns="false"
+                        UseAccessibleHeader="true" OnRowCommand="GridView_RowCommand" OnRowDataBound="GridView_RowDataBound"
+                        CssClass="table table-hover table-striped" GridLines="None"
+                        EmptyDataText="Nenhum Anexo Adicionado!" EmptyDataRowStyle-HorizontalAlign="Center">
+                        <Columns>
+                            <asp:TemplateField HeaderText="Selecionar">
+                                <ItemTemplate>
+                                    <center><asp:CheckBox ID="CheckBoxSelecionar" runat="server" /></center>
+                                </ItemTemplate>
+                                <HeaderStyle Width="50px" />
+                            </asp:TemplateField>
+                            <asp:BoundField DataField="UserName" HeaderText="Usuário" SortExpression="UserName" />
+                            <asp:BoundField DataField="NomeParlamentar" HeaderText="Senador" SortExpression="NomeParlamentar" />
+                            <asp:BoundField DataField="CodigoParlamentar" HeaderText="CodigoParlamentar" />
+                            <asp:BoundField DataField="SiglaPartido" HeaderText="Partido" SortExpression="SiglaPartido" />
+                            <asp:BoundField DataField="SiglaUf" HeaderText="UF" SortExpression="SiglaUf" />
+                            <asp:HyperLinkField DataNavigateUrlFields="url" HeaderText="Site" Target="_blank" Text="Site" />
+                            <asp:BoundField DataField="DespesasMandato" HeaderText="Gastos no Mandato" SortExpression="DespesasMandato" />
+                            <asp:CommandField ButtonType="Button" SelectText="Auditar" ShowSelectButton="True" ControlStyle-CssClass="btn btn-primary btn-sm" />
+                        </Columns>
+                        <RowStyle CssClass="cursor-pointer" />
+                    </asp:GridView>
+                </div>
             </div>
         </div>
         <div class="row">

@@ -108,6 +108,7 @@
     <Content Include="CidadesPendenciaGrid.aspx" />
     <Content Include="AuditarSenador.aspx" />
     <Content Include="AuditoriaPF.aspx" />
+    <Content Include="DossiesOld.aspx" />
     <Content Include="Figuras\tutorial1.jpg" />
     <Content Include="Figuras\logo_opaca.png" />
     <Content Include="Figuras\senado_transparente.png" />
@@ -132,7 +133,6 @@
     <Content Include="assets\js\jquery-1.11.3.min.map" />
     <None Include="EmailComentario.htm" />
     <Content Include="Dossies.aspx" />
-    <Content Include="DossiesOld.aspx" />
     <Content Include="EmailPendente.aspx" />
     <Content Include="Figuras\logo_grande.png" />
     <Content Include="Figuras\logo_ops5.png" />
@@ -232,6 +232,13 @@
     <Compile Include="Classes\Empresa.cs" />
     <Compile Include="Classes\Extenssion.cs" />
     <Compile Include="Classes\FormatarDados.cs" />
+    <Compile Include="DossiesOld.aspx.cs">
+      <DependentUpon>DossiesOld.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DossiesOld.aspx.designer.cs">
+      <DependentUpon>DossiesOld.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Sobre.aspx.cs">
       <DependentUpon>Sobre.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -316,13 +323,6 @@
     </Compile>
     <Compile Include="Dossies.aspx.designer.cs">
       <DependentUpon>Dossies.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="DossiesOld.aspx.cs">
-      <DependentUpon>DossiesOld.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DossiesOld.aspx.designer.cs">
-      <DependentUpon>DossiesOld.aspx</DependentUpon>
     </Compile>
     <Compile Include="EmailPendente.aspx.cs">
       <DependentUpon>EmailPendente.aspx</DependentUpon>
@@ -523,9 +523,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Applet\" />
     <Folder Include="App_Data\" />
-    <Folder Include="assets\font-awesome\" />
     <Folder Include="Upload\" />
   </ItemGroup>
   <ItemGroup>

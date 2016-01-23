@@ -6,12 +6,16 @@
 <head runat="server">
     <title></title>
     <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/assets/css/style.css" rel="stylesheet" />
+    <style type="text/css">
+        .btn { margin-bottom: 10px; }
+    </style>
     <script type="text/javascript" src="<%= ResolveClientUrl("~/") %>assets/js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="<%= ResolveClientUrl("~/") %>assets/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(function () {
-            $("#buscar-captcha-btn").on("click", function () {
+            $("#buscar-captcha-btn").on("click", function (e) {
+                e.preventDefault();
+
                 $("#captcha_img").fadeOut(1000, function () {
                     $(this).attr('src', "");
                     BuscarCaptcha();
@@ -95,8 +99,8 @@
                     $loader.insertAfter($("#captcha_img"));
                 },
                 success: function (data) {
-                    $("#captcha_img").removeClass("hidden").attr('src', data.d);
-                    $("#captcha_img").fadeIn(1000);
+                    $("#captcha_img").removeClass("hidden").attr('src', data.d).fadeIn(1000);
+                    $('#img-input').val('').focus();
                 },
                 complete: function () {
                     $loader.remove();
@@ -184,7 +188,7 @@
             $("#lblDataAbertura").text(dados.DataAbertura);
             $("#lblSituacaoEspecial").text(dados.SituacaoEspecial);
             $("#lblDataSituacaoEspecial").text(dados.DataSituacaoEspecial);
-            $("#lblAtividadeSecundaria").text(dados.AtividadeSecundaria01);
+            $("#lblAtividadeSecundaria").html(dados.AtividadeSecundaria01);
         };
 
     </script>
@@ -240,14 +244,12 @@
                     <asp:Button ID="ButtonListarDocumentos" runat="server" Text="Solicitar/Listar Documentos" CssClass="btn btn-default btn-sm" />
                     <asp:Button ID="ButtonListarDoacoes" runat="server" Text="Listar Doações Eleitorais" ToolTip="Listar Doações Eleitorais do Fornecedor" CssClass="btn btn-primary btn-sm" />
                 </div>
-                <br />
-                <br />
             </div>
             <fieldset id="fsMinhasDenuncias" runat="server" visible="false">
                 <legend>Denúncias</legend>
                 <div class="row">
                     <div class="col-md-12">
-                        <div runat="server" ID="LabelExisteDenuncia" class="alert alert-danger"></div>
+                        <div runat="server" id="LabelExisteDenuncia" class="alert alert-danger"></div>
                     </div>
                     <div class="col-md-12">
                         <asp:GridView ID="GridViewDenuncias" runat="server" AllowSorting="True" UseAccessibleHeader="true"
@@ -260,7 +262,7 @@
             </fieldset>
             <fieldset id="fsDadosReceita" runat="server">
                 <legend>Cadastro nacional da pessoa jurídica</legend>
-                <div runat="server" ID="dvInfoDataConsultaCNPJ" class="alert alert-warning" visible="false"></div>
+                <div runat="server" id="dvInfoDataConsultaCNPJ" class="alert alert-warning" visible="false"></div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">

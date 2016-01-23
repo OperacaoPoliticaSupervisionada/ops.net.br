@@ -1,28 +1,31 @@
 ﻿i.tab-close { color: red; cursor: pointer; }
 
 /* Grids Auditoria */
-html, body { height: 98%; width: 100%; padding: 0px; margin: 0px; }
+html, body { height: 100%; width: 100%; padding: 0px; margin: 0px; overflow: hidden; }
 form#form_auditoria { height: 100%; overflow: hidden; }
-div#container { height: 98%; overflow: hidden; }
-div#conteudo { overflow: hidden; height: 100%; margin-bottom: -20px; }
+div#container { height: 100%; overflow: hidden; }
+div#conteudo { overflow: hidden; height: 100%; }
+
+iframe { height: 100%; width: 100%; overflow: hidden; }
+    div#tab-content { height: 100%; overflow: hidden; padding-bottom: 60px; }
 
 /*xs*/
-@media (max-width: 767px) {
-    iframe { height: 96%; width: 100%; overflow: hidden; }
-    div#tab-content { height: 87%; overflow: hidden; padding-bottom: 20px; }
-}
-/*sm*/
-@media(min-width:768px) and (max-width:991px) {
-    iframe { height: 97%; width: 100%; overflow: hidden; }
-    div#tab-content { height: 90%; overflow: hidden; padding-bottom: 20px; }
-}
-/*md*/
-@media(min-width:992px) and (max-width:1199px) {
-    iframe { height: 98%; width: 100%; overflow: hidden; }
-    div#tab-content { height: 93%; overflow: hidden; padding-bottom: 20px; }
-}
-/*lg*/
-@media(min-width:1200px) {
+/*@media (max-width: 767px) {
     iframe { height: 100%; width: 100%; overflow: hidden; }
-    div#tab-content { height: 95%; overflow: hidden; padding-bottom: 20px; }
-}
+    div#tab-content { height: 100%; overflow: hidden; }
+}*/
+/*sm*/
+/*@media(min-width:768px) and (max-width:991px) {
+    iframe { height: 100%; width: 100%; overflow: hidden; }
+    div#tab-content { height: 100%; overflow: hidden; }
+}*/
+/*md*/
+/*@media(min-width:992px) and (max-width:1199px) {
+    iframe { height: 100%; width: 100%; overflow: hidden; }
+    div#tab-content { height: 100%; overflow: hidden; padding-bottom: 20px; }
+}*/
+/*lg*/
+/*@media(min-width:1200px) {
+    iframe { height: 100%; width: 100%; overflow: hidden; }
+    div#tab-content { height: 100%; overflow: hidden; padding-bottom: 20px; }
+}*/

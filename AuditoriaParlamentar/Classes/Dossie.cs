@@ -207,7 +207,7 @@ namespace AuditoriaParlamentar.Classes
                 sql.Append("    WHERE denuncias.Situacao                      = 'D'");
                 sql.Append("      AND lancamentos_senadores.CnpjCpf           = denuncias.txtCNPJCPF");
                 sql.Append("      AND lancamentos_senadores.CodigoParlamentar = senadores.CodigoParlamentar ");
-                sql.Append(" ORDER BY 1 DESC, 2");
+                sql.Append(" ORDER BY 1 DESC, 3");
 
                 banco.AddParameter("IdDossie", idDossie);
 

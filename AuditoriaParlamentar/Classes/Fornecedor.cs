@@ -60,6 +60,7 @@ namespace AuditoriaParlamentar.Classes
         public Boolean Doador { get; set; }
         public String UsuarioInclusao { get; set; }
         public DateTime DataInclusao { get; set; }
+        public int Matriz { get; internal set; }
 
         internal Boolean EstaAtualizado(String cnpj)
         {

@@ -6,7 +6,6 @@
 <head runat="server">
     <title></title>
     <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/assets/css/style.css" rel="stylesheet" />
     <script type="text/javascript" src="<%= ResolveClientUrl("~/") %>assets/js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="<%= ResolveClientUrl("~/") %>assets/js/bootstrap.min.js"></script>
 </head>
@@ -29,12 +28,14 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <asp:GridView ID="GridViewResultado" runat="server" AllowSorting="True" UseAccessibleHeader="true" OnRowDataBound="GridViewResultado_RowDataBound"
-                        CssClass="table table-hover table-striped" GridLines="None" ShowFooter="True" OnSorting="GridViewResultado_Sorting">
-                        <Columns>
-                        </Columns>
-                        <RowStyle CssClass="cursor-pointer" />
-                    </asp:GridView>
+                    <div class="table-responsive">
+                        <asp:GridView ID="GridViewResultado" runat="server" AllowSorting="True" UseAccessibleHeader="true" OnRowDataBound="GridViewResultado_RowDataBound"
+                            CssClass="table table-hover table-striped" GridLines="None" ShowFooter="True" OnSorting="GridViewResultado_Sorting">
+                            <Columns>
+                            </Columns>
+                            <RowStyle CssClass="cursor-pointer" />
+                        </asp:GridView>
+                    </div>
                 </div>
             </div>
         </form>

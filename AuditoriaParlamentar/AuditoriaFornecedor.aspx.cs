@@ -65,64 +65,64 @@ namespace AuditoriaParlamentar
                         lblTelefone.InnerText = fornecedor.Telefone;
                         lblEnteFederativoResponsavel.InnerText = fornecedor.EnteFederativoResponsavel;
 
-                        lblAtividadeSecundaria.InnerText = fornecedor.AtividadeSecundaria01;
+                        lblAtividadeSecundaria.InnerHtml = fornecedor.AtividadeSecundaria01;
 
                         if (fornecedor.AtividadeSecundaria02 != "" && fornecedor.AtividadeSecundaria02 != null)
-                            lblAtividadeSecundaria.InnerText += "<br />" + fornecedor.AtividadeSecundaria02;
+                            lblAtividadeSecundaria.InnerHtml += "<br />" + fornecedor.AtividadeSecundaria02;
 
                         if (fornecedor.AtividadeSecundaria03 != "" && fornecedor.AtividadeSecundaria03 != null)
-                            lblAtividadeSecundaria.InnerText += "<br />" + fornecedor.AtividadeSecundaria03;
+                            lblAtividadeSecundaria.InnerHtml += "<br />" + fornecedor.AtividadeSecundaria03;
 
                         if (fornecedor.AtividadeSecundaria04 != "" && fornecedor.AtividadeSecundaria04 != null)
-                            lblAtividadeSecundaria.InnerText += "<br />" + fornecedor.AtividadeSecundaria04;
+                            lblAtividadeSecundaria.InnerHtml += "<br />" + fornecedor.AtividadeSecundaria04;
 
                         if (fornecedor.AtividadeSecundaria05 != "" && fornecedor.AtividadeSecundaria05 != null)
-                            lblAtividadeSecundaria.InnerText += "<br />" + fornecedor.AtividadeSecundaria05;
+                            lblAtividadeSecundaria.InnerHtml += "<br />" + fornecedor.AtividadeSecundaria05;
 
                         if (fornecedor.AtividadeSecundaria06 != "" && fornecedor.AtividadeSecundaria06 != null)
-                            lblAtividadeSecundaria.InnerText += "<br />" + fornecedor.AtividadeSecundaria06;
+                            lblAtividadeSecundaria.InnerHtml += "<br />" + fornecedor.AtividadeSecundaria06;
 
                         if (fornecedor.AtividadeSecundaria07 != "" && fornecedor.AtividadeSecundaria07 != null)
-                            lblAtividadeSecundaria.InnerText += "<br />" + fornecedor.AtividadeSecundaria07;
+                            lblAtividadeSecundaria.InnerHtml += "<br />" + fornecedor.AtividadeSecundaria07;
 
                         if (fornecedor.AtividadeSecundaria08 != "" && fornecedor.AtividadeSecundaria08 != null)
-                            lblAtividadeSecundaria.InnerText += "<br />" + fornecedor.AtividadeSecundaria08;
+                            lblAtividadeSecundaria.InnerHtml += "<br />" + fornecedor.AtividadeSecundaria08;
 
                         if (fornecedor.AtividadeSecundaria09 != "" && fornecedor.AtividadeSecundaria09 != null)
-                            lblAtividadeSecundaria.InnerText += "<br />" + fornecedor.AtividadeSecundaria09;
+                            lblAtividadeSecundaria.InnerHtml += "<br />" + fornecedor.AtividadeSecundaria09;
 
                         if (fornecedor.AtividadeSecundaria10 != "" && fornecedor.AtividadeSecundaria10 != null)
-                            lblAtividadeSecundaria.InnerText += "<br />" + fornecedor.AtividadeSecundaria10;
+                            lblAtividadeSecundaria.InnerHtml += "<br />" + fornecedor.AtividadeSecundaria10;
 
                         if (fornecedor.AtividadeSecundaria11 != "" && fornecedor.AtividadeSecundaria11 != null)
-                            lblAtividadeSecundaria.InnerText += "<br />" + fornecedor.AtividadeSecundaria11;
+                            lblAtividadeSecundaria.InnerHtml += "<br />" + fornecedor.AtividadeSecundaria11;
 
                         if (fornecedor.AtividadeSecundaria12 != "" && fornecedor.AtividadeSecundaria12 != null)
-                            lblAtividadeSecundaria.InnerText += "<br />" + fornecedor.AtividadeSecundaria12;
+                            lblAtividadeSecundaria.InnerHtml += "<br />" + fornecedor.AtividadeSecundaria12;
 
                         if (fornecedor.AtividadeSecundaria13 != "" && fornecedor.AtividadeSecundaria13 != null)
-                            lblAtividadeSecundaria.InnerText += "<br />" + fornecedor.AtividadeSecundaria13;
+                            lblAtividadeSecundaria.InnerHtml += "<br />" + fornecedor.AtividadeSecundaria13;
 
                         if (fornecedor.AtividadeSecundaria14 != "" && fornecedor.AtividadeSecundaria14 != null)
-                            lblAtividadeSecundaria.InnerText += "<br />" + fornecedor.AtividadeSecundaria14;
+                            lblAtividadeSecundaria.InnerHtml += "<br />" + fornecedor.AtividadeSecundaria14;
 
                         if (fornecedor.AtividadeSecundaria15 != "" && fornecedor.AtividadeSecundaria15 != null)
-                            lblAtividadeSecundaria.InnerText += "<br />" + fornecedor.AtividadeSecundaria15;
+                            lblAtividadeSecundaria.InnerHtml += "<br />" + fornecedor.AtividadeSecundaria15;
 
                         if (fornecedor.AtividadeSecundaria16 != "" && fornecedor.AtividadeSecundaria16 != null)
-                            lblAtividadeSecundaria.InnerText += "<br />" + fornecedor.AtividadeSecundaria16;
+                            lblAtividadeSecundaria.InnerHtml += "<br />" + fornecedor.AtividadeSecundaria16;
 
                         if (fornecedor.AtividadeSecundaria17 != "" && fornecedor.AtividadeSecundaria17 != null)
-                            lblAtividadeSecundaria.InnerText += "<br />" + fornecedor.AtividadeSecundaria17;
+                            lblAtividadeSecundaria.InnerHtml += "<br />" + fornecedor.AtividadeSecundaria17;
 
                         if (fornecedor.AtividadeSecundaria18 != "" && fornecedor.AtividadeSecundaria18 != null)
-                            lblAtividadeSecundaria.InnerText += "<br />" + fornecedor.AtividadeSecundaria18;
+                            lblAtividadeSecundaria.InnerHtml += "<br />" + fornecedor.AtividadeSecundaria18;
 
                         if (fornecedor.AtividadeSecundaria19 != "" && fornecedor.AtividadeSecundaria19 != null)
-                            lblAtividadeSecundaria.InnerText += "<br />" + fornecedor.AtividadeSecundaria19;
+                            lblAtividadeSecundaria.InnerHtml += "<br />" + fornecedor.AtividadeSecundaria19;
 
                         if (fornecedor.AtividadeSecundaria20 != "" && fornecedor.AtividadeSecundaria20 != null)
-                            lblAtividadeSecundaria.InnerText += "<br />" + fornecedor.AtividadeSecundaria20;
+                            lblAtividadeSecundaria.InnerHtml += "<br />" + fornecedor.AtividadeSecundaria20;
 
                         fsConsultaReceita.Style.Add("display", "none");
 
@@ -130,8 +130,9 @@ namespace AuditoriaParlamentar
 
                         if (fornecedor.DataInclusao != DateTime.MinValue)
                         {
+                            //TODO: Consultar data da Ultima NF e comparar com a data de pesquisa (DataInclusao).
                             dvInfoDataConsultaCNPJ.Visible = true;
-                            dvInfoDataConsultaCNPJ.InnerHtml = string.Format("As informações abaixo foram consultadas em {0:dd/MM/yyyy HH:mm}. Clique <a href='#' onclick'ReconsultarDadosReceita(); return false;'>aqui</a> para atualizar os dados a partir da Receita Federal.", fornecedor.DataInclusao);
+                            dvInfoDataConsultaCNPJ.InnerHtml = string.Format("As informações abaixo foram consultadas em {0:dd/MM/yyyy HH:mm}. Clique <a href='#' onclick='ReconsultarDadosReceita(); return false;'>aqui</a> para atualizar os dados a partir da Receita Federal.", fornecedor.DataInclusao);
                         }
 
                     }
@@ -227,7 +228,7 @@ namespace AuditoriaParlamentar
             if (resp.Length > 0)
             {
                 fornecedor = new FormatarDados().MontarObjFornecedor(cnpj, resp);
-                if (!string.IsNullOrEmpty(fornecedor.RazaoSocial))
+                if (fornecedor != null)
                 {
                     var UserName = HttpContext.Current.User.Identity.Name;
 
@@ -240,6 +241,63 @@ namespace AuditoriaParlamentar
                     fornecedor.MarcaVisitado(UserName);
                 }
             }
+
+            if (fornecedor.AtividadeSecundaria02 != "" && fornecedor.AtividadeSecundaria02 != null)
+                fornecedor.AtividadeSecundaria01 += "<br />" + fornecedor.AtividadeSecundaria02;
+
+            if (fornecedor.AtividadeSecundaria03 != "" && fornecedor.AtividadeSecundaria03 != null)
+                fornecedor.AtividadeSecundaria01 += "<br />" + fornecedor.AtividadeSecundaria03;
+
+            if (fornecedor.AtividadeSecundaria04 != "" && fornecedor.AtividadeSecundaria04 != null)
+                fornecedor.AtividadeSecundaria01 += "<br />" + fornecedor.AtividadeSecundaria04;
+
+            if (fornecedor.AtividadeSecundaria05 != "" && fornecedor.AtividadeSecundaria05 != null)
+                fornecedor.AtividadeSecundaria01 += "<br />" + fornecedor.AtividadeSecundaria05;
+
+            if (fornecedor.AtividadeSecundaria06 != "" && fornecedor.AtividadeSecundaria06 != null)
+                fornecedor.AtividadeSecundaria01 += "<br />" + fornecedor.AtividadeSecundaria06;
+
+            if (fornecedor.AtividadeSecundaria07 != "" && fornecedor.AtividadeSecundaria07 != null)
+                fornecedor.AtividadeSecundaria01 += "<br />" + fornecedor.AtividadeSecundaria07;
+
+            if (fornecedor.AtividadeSecundaria08 != "" && fornecedor.AtividadeSecundaria08 != null)
+                fornecedor.AtividadeSecundaria01 += "<br />" + fornecedor.AtividadeSecundaria08;
+
+            if (fornecedor.AtividadeSecundaria09 != "" && fornecedor.AtividadeSecundaria09 != null)
+                fornecedor.AtividadeSecundaria01 += "<br />" + fornecedor.AtividadeSecundaria09;
+
+            if (fornecedor.AtividadeSecundaria10 != "" && fornecedor.AtividadeSecundaria10 != null)
+                fornecedor.AtividadeSecundaria01 += "<br />" + fornecedor.AtividadeSecundaria10;
+
+            if (fornecedor.AtividadeSecundaria11 != "" && fornecedor.AtividadeSecundaria11 != null)
+                fornecedor.AtividadeSecundaria01 += "<br />" + fornecedor.AtividadeSecundaria11;
+
+            if (fornecedor.AtividadeSecundaria12 != "" && fornecedor.AtividadeSecundaria12 != null)
+                fornecedor.AtividadeSecundaria01 += "<br />" + fornecedor.AtividadeSecundaria12;
+
+            if (fornecedor.AtividadeSecundaria13 != "" && fornecedor.AtividadeSecundaria13 != null)
+                fornecedor.AtividadeSecundaria01 += "<br />" + fornecedor.AtividadeSecundaria13;
+
+            if (fornecedor.AtividadeSecundaria14 != "" && fornecedor.AtividadeSecundaria14 != null)
+                fornecedor.AtividadeSecundaria01 += "<br />" + fornecedor.AtividadeSecundaria14;
+
+            if (fornecedor.AtividadeSecundaria15 != "" && fornecedor.AtividadeSecundaria15 != null)
+                fornecedor.AtividadeSecundaria01 += "<br />" + fornecedor.AtividadeSecundaria15;
+
+            if (fornecedor.AtividadeSecundaria16 != "" && fornecedor.AtividadeSecundaria16 != null)
+                fornecedor.AtividadeSecundaria01 += "<br />" + fornecedor.AtividadeSecundaria16;
+
+            if (fornecedor.AtividadeSecundaria17 != "" && fornecedor.AtividadeSecundaria17 != null)
+                fornecedor.AtividadeSecundaria01 += "<br />" + fornecedor.AtividadeSecundaria17;
+
+            if (fornecedor.AtividadeSecundaria18 != "" && fornecedor.AtividadeSecundaria18 != null)
+                fornecedor.AtividadeSecundaria01 += "<br />" + fornecedor.AtividadeSecundaria18;
+
+            if (fornecedor.AtividadeSecundaria19 != "" && fornecedor.AtividadeSecundaria19 != null)
+                fornecedor.AtividadeSecundaria01 += "<br />" + fornecedor.AtividadeSecundaria19;
+
+            if (fornecedor.AtividadeSecundaria20 != "" && fornecedor.AtividadeSecundaria20 != null)
+                fornecedor.AtividadeSecundaria01 += "<br />" + fornecedor.AtividadeSecundaria20;
 
             return
                 new

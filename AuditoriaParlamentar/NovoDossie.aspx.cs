@@ -11,14 +11,6 @@ namespace AuditoriaParlamentar
 {
     public partial class NovoDossie : System.Web.UI.Page
     {
-        protected override void OnPreInit(EventArgs e)
-        {
-            if (Session["MasterPage"] == "Farejador")
-            {
-                Page.MasterPageFile = "~/OpsFarejador.Master";
-            }
-        }
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated || !System.Web.HttpContext.Current.User.IsInRole("REVISOR"))

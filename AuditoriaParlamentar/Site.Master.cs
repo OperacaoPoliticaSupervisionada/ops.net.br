@@ -24,7 +24,7 @@ namespace AuditoriaParlamentar
                 }
 
                 HyperLinkDeputadoFederal.HRef = "PesquisaInicio.aspx?CARGO=" + Pesquisa.CARGO_DEPUTADO_FEDERAL;
-                HyperLinkSenador.HRef = "PesquisaInicio.aspx?CARGO=" + Pesquisa.CARGO_SENADOR;
+                HyperLinkSenador.HRef = "AuditarSenador.aspx";// "PesquisaInicio.aspx?CARGO=" + Pesquisa.CARGO_SENADOR;
             }
         }
     }

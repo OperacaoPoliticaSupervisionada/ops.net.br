@@ -44,7 +44,7 @@
         var mDocumento = "";
 
         var tabTemplate = "<li><a href='#{href}' data-toggle='tab'>#{label}&nbsp;<i class='tab-close glyphicon glyphicon-remove' title='Fechar'></i></a></li>";
-        var frameTemplate = "<div id='#{id}' class='tab-pane'><iframe onload='iResize(this);' src='#{src}' frameborder='0' width='100%'/></div>"
+        var frameTemplate = "<div id='#{id}' class='tab-pane'><iframe src='#{src}' frameborder='0' width='100%'/></div>"
         var tabCounter = 1;
         var idCounter = 1;
 
@@ -79,10 +79,6 @@
 
                 if ($('#tabs li.active').length == 0)
                     $('#tabs li:eq(' + (tabCounter - 1) + ') a').tab('show');
-            });
-
-            tabs.delegate("a[data-toggle='tab']", "shown.bs.tab", function (e) {
-                iResize($($(e.target).attr('href')).find('iframe')[0]);
             });
         });
 
@@ -266,7 +262,7 @@
     <br />
     <div id="tab-content" class="tab-content">
         <div class="tab-pane active" id="tabs-1">
-            <iframe id="frame" src="<%= Pagina%>" frameborder="0" width="100%" onload="iResize(this);" style="height: 100%;" />
+            <iframe id="frame" src="<%= Pagina%>" frameborder="0" width="100%" style="height: 100%;" />
         </div>
     </div>
 </body>

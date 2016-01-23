@@ -6,7 +6,6 @@
 <head runat="server">
     <title></title>
     <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/assets/css/style.css" rel="stylesheet" />
     <script type="text/javascript" src="<%= ResolveClientUrl("~/") %>assets/js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="<%= ResolveClientUrl("~/") %>assets/js/bootstrap.min.js"></script>
 </head>
@@ -50,7 +49,7 @@
                         <asp:Button ID="ButtonGerar" runat="server" Text="Gerar Texto" CssClass="btn btn-success btn-sm" OnClick="ButtonGerar_Click" />
                         <br />
                         <br />
-                         <asp:HyperLink ID="HyperLinkCamara" runat="server" Target="_blank">Você poderá consultar se o documento está disponível no portal da Câmara.</asp:HyperLink>
+                        <asp:HyperLink ID="HyperLinkCamara" runat="server" Target="_blank">Você poderá consultar se o documento está disponível no portal da Câmara.</asp:HyperLink>
                         <br />
                         <asp:HyperLink ID="HyperLinkDoc" runat="server" NavigateUrl="http://www2.camara.leg.br/participe/fale-conosco/?contexto=biblarq"
                             Target="_blank">Clique aqui para abrir uma solicitação no Fale Conosco da Câmara dos Deputados. Copie o texto abaixo e cole na mensagem da solicitação. Após a solicitação ser processada a Câmara enviará um e-mail com instruções de como fazer o pagamento. O custo é de R$ 0,15 centavos por folha.</asp:HyperLink>
@@ -59,19 +58,21 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <asp:GridView ID="GridViewResultado" runat="server" AllowSorting="True" UseAccessibleHeader="true" OnRowDataBound="GridViewResultado_RowDataBound"
-                        CssClass="table table-hover table-striped" GridLines="None" ShowFooter="True" OnSorting="GridViewResultado_Sorting">
-                        <Columns>
-                            <asp:TemplateField HeaderText="Selecionar">
-                                <ItemTemplate>
-                                    <center>
-                                        <asp:CheckBox ID="CheckBoxSelecionar" runat="server" /></center>
-                                </ItemTemplate>
-                                <HeaderStyle Width="50px" />
-                            </asp:TemplateField>
-                        </Columns>
-                        <RowStyle CssClass="cursor-pointer" />
-                    </asp:GridView>
+                    <div class="table-responsive">
+                        <asp:GridView ID="GridViewResultado" runat="server" AllowSorting="True" UseAccessibleHeader="true" OnRowDataBound="GridViewResultado_RowDataBound"
+                            CssClass="table table-hover table-striped" GridLines="None" ShowFooter="True" OnSorting="GridViewResultado_Sorting">
+                            <Columns>
+                                <asp:TemplateField HeaderText="Selecionar">
+                                    <ItemTemplate>
+                                        <center>
+                                            <asp:CheckBox ID="CheckBoxSelecionar" runat="server" /></center>
+                                    </ItemTemplate>
+                                    <HeaderStyle Width="50px" />
+                                </asp:TemplateField>
+                            </Columns>
+                            <RowStyle CssClass="cursor-pointer" />
+                        </asp:GridView>
+                    </div>
                 </div>
             </div>
         </form>
