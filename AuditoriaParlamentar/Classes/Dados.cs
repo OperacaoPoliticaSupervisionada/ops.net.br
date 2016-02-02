@@ -288,17 +288,18 @@ namespace AuditoriaParlamentar
             sql.Clear();
             sql.Append(" INSERT INTO parlamentares (");
             sql.Append("        ideCadastro,");
-            sql.Append("        txNomeParlamentar)");
+            sql.Append("        txNomeParlamentar,");
+            sql.Append("        nuDeputadoId)");
             sql.Append(" SELECT DISTINCT");
-            sql.Append("        lancamentos.ideCadastro,");
-            sql.Append("        lancamentos.txNomeParlamentar");
-            sql.Append("   FROM lancamentos");
-            sql.Append("  WHERE lancamentos.anomes IS NULL");
-            sql.Append("    AND lancamentos.txNomeParlamentar <> ''");
-            sql.Append("    AND lancamentos.ideCadastro        > 0");
+            sql.Append("        lancamentos_tmp.ideCadastro,");
+            sql.Append("        lancamentos_tmp.txNomeParlamentar,");
+            sql.Append("        lancamentos_tmp.nuDeputadoId");
+            sql.Append("   FROM lancamentos_tmp");
+            sql.Append("  WHERE lancamentos_tmp.txNomeParlamentar <> ''");
+            sql.Append("    AND lancamentos_tmp.ideCadastro        > 0");
             sql.Append("    AND NOT EXISTS (SELECT 1");
             sql.Append("                      FROM parlamentares");
-            sql.Append("                     WHERE parlamentares.txNomeParlamentar = lancamentos.txNomeParlamentar)");
+            sql.Append("                     WHERE parlamentares.txNomeParlamentar = lancamentos_tmp.txNomeParlamentar)");
             
             banco.ExecuteNonQuery(sql.ToString(), 0);
 
