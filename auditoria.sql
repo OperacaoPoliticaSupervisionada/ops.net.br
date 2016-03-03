@@ -310,7 +310,9 @@ CREATE TABLE `lancamentos` (
   `txtTrecho` varchar(100) DEFAULT NULL,
   `numLote` int(11) DEFAULT NULL,
   `numRessarcimento` int(11) DEFAULT NULL,
+  `ideDocumento` varchar(20) DEFAULT NULL,
   `anomes` decimal(6,0) DEFAULT NULL,
+  `vlrRestituicao` decimal(10,2) DEFAULT NULL,
   UNIQUE KEY `id` (`id`),
   KEY `Index_6` (`numAno`,`numMes`,`ideCadastro`),
   KEY `Index_1` (`ideCadastro`),
@@ -320,7 +322,7 @@ CREATE TABLE `lancamentos` (
   KEY `Index_5` (`numSubCota`),
   KEY `Index_7` (`txtNumero`),
   KEY `Index_8` (`anomes`)
-) ENGINE=MyISAM AUTO_INCREMENT=1115789 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=314716 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -414,6 +416,9 @@ CREATE TABLE `lancamentos_tmp` (
   `txtTrecho` varchar(100) DEFAULT NULL,
   `numLote` int(11) DEFAULT NULL,
   `numRessarcimento` int(11) DEFAULT NULL,
+  `ideDocumento` varchar(20) DEFAULT NULL,
+  `vlrRestituicao` decimal(10,2) DEFAULT NULL,
+  `nuDeputadoId` int(11) DEFAULT NULL,
   KEY `Index_1` (`numAno`,`numMes`,`ideCadastro`),
   KEY `Index_2` (`txtCNPJCPF`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
